@@ -1,0 +1,12 @@
+*.class
+*.log
+*.idea
+.classpath
+.project
+*.txt
+*.zip
+*.iml
+*/target/*
+*/tmp/*
+*/.idea/*
+
