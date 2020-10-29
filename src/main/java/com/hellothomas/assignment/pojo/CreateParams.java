@@ -1,4 +1,4 @@
-package com.hellothomas.assignment.Pojo;
+package com.hellothomas.assignment.pojo;
 
 /**
  * @ClassName CreateParams

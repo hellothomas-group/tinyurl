@@ -1,6 +1,6 @@
 package com.hellothomas.assignment.controller;
 
-import com.hellothomas.assignment.Pojo.CreateParams;
+import com.hellothomas.assignment.pojo.CreateParams;
 import com.hellothomas.assignment.exception.MyException;
 import com.hellothomas.assignment.service.TinyUrlService;
 import com.hellothomas.assignment.utils.UrlUtil;
@@ -8,7 +8,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
