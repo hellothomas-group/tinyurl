@@ -4,6 +4,7 @@ import com.hellothomas.assignment.exception.MyException;
 import com.hellothomas.assignment.infrastructure.http.HttpRequestDataExtractor;
 import com.hellothomas.assignment.infrastructure.http.RequestForwarder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -38,8 +39,8 @@ public class ReverseProxyFilter extends OncePerRequestFilter {
 
         if (originUri.contains(PROXY_PATH)) {
             URI uri = this.httpRequestDataExtractor.getUri(request, PROXY_PATH);
-            ResponseEntity<byte[]> responseEntity = this.requestForwarder.forwardRequest(request, uri);
-            this.processResponse(response, responseEntity);
+            response.setStatus(HttpStatus.FOUND.value());
+            response.setHeader("Location", uri.toString());
         } else {
             filterChain.doFilter(request, response);
         }

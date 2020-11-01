@@ -19,7 +19,7 @@ import static com.hellothomas.assignment.constants.Constants.PROXY_PATH;
  * @description
  * @version 1.0
  */
-@Configuration
+//@Configuration
 @Slf4j
 public class FilterConfig {
     @Bean

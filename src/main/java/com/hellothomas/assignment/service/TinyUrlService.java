@@ -53,7 +53,6 @@ public class TinyUrlService {
             return null;
         }
 
-        String prefixTinyurl = tinyUrl.getProtocol() + "://" + tinyUrl.getHost() + "/";
         String seqString = StringUtils.removeStartIgnoreCase(tinyUrl.getPath(), PROXY_PATH + "/");
         long seq = decimalConvertService.decimalConvertToNumber(seqString, 62);
 

@@ -20,6 +20,7 @@ public class RequestForwarderTest {
         System.out.println(uri.getScheme());
         System.out.println(uri.getSchemeSpecificPart());
         System.out.println(uri.getRawSchemeSpecificPart());
+        System.out.println(uri);
     }
 
     @Test
@@ -29,6 +30,14 @@ public class RequestForwarderTest {
         System.out.println(myException.getCode());
         System.out.println(myException.getMessage());
         log.error(myException.getMessage());
+    }
+
+    @Test
+    public void testStringToNum() {
+        String str = String.format("%08d", 1);
+        System.out.println(str);
+        long num = Long.valueOf(str);
+        System.out.println(num);
     }
 
 }
