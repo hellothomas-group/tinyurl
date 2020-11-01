@@ -1,5 +1,12 @@
 package com.hellothomas.assignment.exception;
 
+import com.hellothomas.assignment.enums.ICodeEnum;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.text.MessageFormat;
+
 /**
  * @ClassName MyException
  * @Author 80234613
@@ -7,9 +14,19 @@ package com.hellothomas.assignment.exception;
  * @Descripton
  * @Version 1.0
  */
+@Setter
+@Getter
+@ToString
 public class MyException extends RuntimeException {
+    private String code;
 
-    public MyException(String message){
-        super(message);
+    public MyException(ICodeEnum codeEnum) {
+        super(codeEnum.getMessage());
+        this.code = codeEnum.getCode();
+    }
+
+    public MyException(ICodeEnum codeEnum, Object... params) {
+        super(MessageFormat.format(codeEnum.getMessage(), params));
+        this.code = codeEnum.getCode();
     }
 }

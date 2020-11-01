@@ -1,7 +1,7 @@
 package com.hellothomas.assignment.controller;
 
-import com.hellothomas.assignment.pojo.CreateParams;
 import com.hellothomas.assignment.exception.MyException;
+import com.hellothomas.assignment.pojo.CreateParams;
 import com.hellothomas.assignment.service.TinyUrlService;
 import com.hellothomas.assignment.utils.UrlUtil;
 import io.swagger.annotations.Api;
@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.hellothomas.assignment.enums.ErrorCodeEnum.URL_FORMAT_ERROR;
 
 /**
  * @ClassName TinyURLController
@@ -51,7 +53,7 @@ public class TinyUrlController {
         LOGGER.info("origin_url: " + originUrlStr);
         URL originURL = UrlUtil.parse(originUrlStr);
         if (originURL == null) {
-            throw new MyException("URL格式错误！");
+            throw new MyException(URL_FORMAT_ERROR);
         }
         String tinyUrlStr = tinyURLService.createTinyUrl(originURL);
         LOGGER.info("tiny_url: " + tinyUrlStr);
@@ -75,11 +77,11 @@ public class TinyUrlController {
         LOGGER.info("tiny_url: " + tinyUrlStr);
         URL tinyURL = UrlUtil.parse(tinyUrlStr);
         if (tinyURL == null) {
-            throw new MyException("URL格式错误！");
+            throw new MyException(URL_FORMAT_ERROR);
         }
         String originUrlStr = tinyURLService.getOriginUrl(tinyURL);
         if (originUrlStr == null) {
-            throw new MyException("无对应origin_url!");
+            throw new MyException(URL_FORMAT_ERROR);
         }
         resultMap.put("origin_url", originUrlStr);
         resultMap.put("tiny_url", tinyUrlStr);
