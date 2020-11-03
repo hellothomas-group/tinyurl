@@ -18,3 +18,15 @@ CREATE TABLE `url_mapping` (
   UNIQUE KEY `i_tiny_url` (`tiny_url`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `url_sequence` (
+  `id` bigint(20) NOT NULL COMMENT 'id',
+  `start_seq` bigint(20) NOT NULL comment '起始序号',
+  `end_seq` bigint(20) NOT NULL comment '结束序号',
+  `host_name` varchar(256) NOT NULL comment '主机名',
+  `host_ip` varchar(64) NOT NULL comment '主机IP',
+  `create_time` timestamp default CURRENT_TIMESTAMP NOT NULL comment '生成时间',
+  `update_time` timestamp default CURRENT_TIMESTAMP NOT NULL on update CURRENT_TIMESTAMP comment '最后更新时间',
+
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
