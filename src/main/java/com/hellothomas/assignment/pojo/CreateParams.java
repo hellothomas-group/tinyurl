@@ -1,5 +1,9 @@
 package com.hellothomas.assignment.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  * @ClassName CreateParams
  * @Author 80234613
@@ -7,15 +11,10 @@ package com.hellothomas.assignment.pojo;
  * @Descripton
  * @Version 1.0
  */
+@Getter
+@Setter
+@ToString
 public class CreateParams {
 
-    private String origin_url;
-
-    public String getOrigin_url() {
-        return origin_url;
-    }
-
-    public void setOrigin_url(String origin_url) {
-        this.origin_url = origin_url;
-    }
+    private String originUrl;
 }

@@ -71,9 +71,8 @@ public class HttpRequestDataExtractor {
     }
 
     public URI getUri(HttpServletRequest request, String prefixPath) {
-        String seqString = extractUriWithout(request, prefixPath + "/");
-        long seq = decimalConvertService.decimalConvertToNumber(seqString, 62);
-        String originUrlStr = uniqueSeqService.SeqConvertToOriginUrl(seq);
+        String seqEncode = extractUriWithout(request, prefixPath + "/");
+        String originUrlStr = uniqueSeqService.seqConvertToOriginUrl(seqEncode);
         if (originUrlStr == null) {
             throw new MyException(URL_NOT_EXIST);
         }

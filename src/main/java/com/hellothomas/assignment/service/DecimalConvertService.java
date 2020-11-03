@@ -1,7 +1,5 @@
 package com.hellothomas.assignment.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -16,20 +14,19 @@ import java.util.Map;
  */
 @Service
 public class DecimalConvertService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(DecimalConvertService.class);
-
+    public static final int DECIMAL_LENGTH = 6;
     private final char[] array;
 
-    private Map<Character, Integer> charValueMap = new HashMap<Character, Integer>();
+    private Map<Character, Integer> charValueMap;
 
     public DecimalConvertService() {
-        array  = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-                            'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd',
-                            'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm',
-                            'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D',
-                            'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M'};
-        charValueMap = new HashMap<Character, Integer>();
+//        array  = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+//                            'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd',
+//                            'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm',
+//                            'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D',
+//                            'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M'};
+        array = "LBClqO43AIbTMDy8G1eVZmF0hutRkzXdQ6wNfiKEJaxWHPSg57rj9nosY2vUcp".toCharArray();
+        charValueMap = new HashMap(64);
         for (int i = 0; i < array.length; i++) {
             charValueMap.put(array[i], i);
         }
@@ -48,6 +45,11 @@ public class DecimalConvertService {
         while (number != 0) {
             sb.append(array[(int) (number - (number / decimal) * decimal)]);
             number /= decimal;
+        }
+
+        int fillLength = DECIMAL_LENGTH - sb.length();
+        for (int i = 0; i < fillLength; i++) {
+            sb.append(array[0]);
         }
         return sb.reverse().toString();
     }
@@ -71,9 +73,6 @@ public class DecimalConvertService {
         }
         return sum;
     }
-
-
-
 
 
 }

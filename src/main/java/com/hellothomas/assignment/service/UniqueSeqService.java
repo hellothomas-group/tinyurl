@@ -1,10 +1,10 @@
 package com.hellothomas.assignment.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
+import javax.annotation.PostConstruct;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -16,53 +16,68 @@ import java.util.concurrent.atomic.AtomicLong;
  * @Descripton 全局唯一序号Service
  * @Version 1.0
  */
+@Slf4j
 @Service
 public class UniqueSeqService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UniqueSeqService.class);
-
+    @Value("${seq.init-value}")
+    private Long seqInitValue;
     private AtomicLong aLong;
-    private Map<String, Long> originValueMap;
-    private Map<Long, String> seqValueMap;
 
-    public UniqueSeqService() {
-        String seqInitValue = System.getenv("SEQ_INIT_VALUE");
-        Assert.hasText(seqInitValue, "环境变量序号初始值(SEQ_INIT_VALUE)未设置");
-        LOGGER.info("SEQ_INIT_VALUE:" + seqInitValue);
-        aLong = new AtomicLong(Long.parseLong(seqInitValue));
-        originValueMap = new ConcurrentHashMap<String, Long>();
-        seqValueMap = new ConcurrentHashMap<Long, String>();
+    private final DecimalConvertService decimalConvertService;
+    /**
+     * Key:originUrlMd5
+     * Value:idEncode
+     */
+    private final Map<String, String> originValueMap;
+    /**
+     * Key:idEncode
+     * Value:originUrl
+     */
+    private final Map<String, String> seqValueMap;
+
+
+    public UniqueSeqService(DecimalConvertService decimalConvertService) {
+        this.decimalConvertService = decimalConvertService;
+        originValueMap = new ConcurrentHashMap();
+        seqValueMap = new ConcurrentHashMap();
     }
 
     /**
      * @Author 80234613
      * @Date 2019-7-7 12:19
      * @Descripton 为OriginURL生成全局唯一序号
-     * @param originUrl
-     * @Return long
+     * @param originUrlMd5
+     * @Return java.lang.String
      */
-    public long generateSeq(String originUrl) {
-        Long seq = originValueMap.get(originUrl);
-        if (seq != null) {
-            LOGGER.info("既有seq：" + seq.toString());
-            return seq;
+    public String generateSeqEncode(String originUrlStr, String originUrlMd5) {
+        String seqEncode = originValueMap.get(originUrlMd5);
+        if (seqEncode != null) {
+            log.info("既有seqEncode：" + seqEncode);
+            return seqEncode;
         }
-        seq = aLong.incrementAndGet();
-        LOGGER.info("新生成seq：" + seq.toString());
-        originValueMap.put(originUrl, seq);
-        seqValueMap.put(seq, originUrl);
-        return seq;
+        long seq = aLong.incrementAndGet();
+        log.info("新生成seq：" + seq);
+        seqEncode = decimalConvertService.numberConvertToDecimal(seq, 62);
+        originValueMap.put(originUrlMd5, seqEncode);
+        seqValueMap.put(seqEncode, originUrlStr);
+        return seqEncode;
     }
 
     /**
      * @Author 80234613
      * @Date 2019-7-7 12:19
      * @Descripton 全局唯一序号转换为原originURL
-     * @param seq
+     * @param seqEncode
      * @Return java.lang.String
      */
-    public String SeqConvertToOriginUrl(long seq) {
-        return seqValueMap.get(seq);
+    public String seqConvertToOriginUrl(String seqEncode) {
+        return seqValueMap.get(seqEncode);
+    }
+
+    @PostConstruct
+    private void init() {
+        aLong = new AtomicLong(seqInitValue);
     }
 
 }

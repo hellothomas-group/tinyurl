@@ -6,7 +6,7 @@ SET NAMES utf8mb4;
 
 CREATE TABLE `url_mapping` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `origin_url` varchar(300) NOT NULL comment '原始长链接',
+  `originUrl` varchar(300) NOT NULL comment '原始长链接',
   `origin_url_md5` varchar(32) NOT NULL comment '长链接md5值',
   `tiny_url` varchar(10) NOT NULL comment '短链接',
   `url_type` int(1) default 0 NOT NULL comment '短链接类型生成类型,系统: “system”,自定义: “custom” 0为system,1为custom 缺省为0',

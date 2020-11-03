@@ -1,6 +1,5 @@
 package com.hellothomas.assignment.controller;
 
-import com.hellothomas.assignment.service.DecimalConvertService;
 import com.hellothomas.assignment.service.UniqueSeqService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -23,18 +22,15 @@ import static com.hellothomas.assignment.constants.Constants.PROXY_PATH;
 @RequestMapping(PROXY_PATH)
 public class RedirectController {
 
-    private final DecimalConvertService decimalConvertService;
     private final UniqueSeqService uniqueSeqService;
 
-    public RedirectController(DecimalConvertService decimalConvertService, UniqueSeqService uniqueSeqService) {
-        this.decimalConvertService = decimalConvertService;
+    public RedirectController(UniqueSeqService uniqueSeqService) {
         this.uniqueSeqService = uniqueSeqService;
     }
 
     @ApiIgnore
     @GetMapping("/{seqString}")
-    public String getOriginUrl(@PathVariable("seqString") String seqString) {
-        long seq = decimalConvertService.decimalConvertToNumber(seqString, 62);
-        return "redirect:" + uniqueSeqService.SeqConvertToOriginUrl(seq);
+    public String getOriginUrl(@PathVariable("seqString") String seqEncode) {
+        return "redirect:" + uniqueSeqService.seqConvertToOriginUrl(seqEncode);
     }
 }
