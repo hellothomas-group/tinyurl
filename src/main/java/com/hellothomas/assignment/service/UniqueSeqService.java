@@ -1,13 +1,18 @@
 package com.hellothomas.assignment.service;
 
+import com.hellothomas.assignment.enums.UrlTypeEnum;
+import com.hellothomas.assignment.exception.MyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+
+import static com.hellothomas.assignment.constants.Constants.ID_ENCODE_PREFIX;
+import static com.hellothomas.assignment.constants.Constants.ORIGIN_URL_MD5_KEY_PREFIX;
+import static com.hellothomas.assignment.enums.ErrorCodeEnum.URL_NOT_EXIST;
 
 /**
  * @ClassName UniqueSeqService
@@ -19,28 +24,18 @@ import java.util.concurrent.atomic.AtomicLong;
 @Slf4j
 @Service
 public class UniqueSeqService {
+    private final RedisTemplate redisTemplate;
+    private final UrlMappingService urlMappingService;
+    private final DecimalConvertService decimalConvertService;
 
     @Value("${seq.init-value}")
     private Long seqInitValue;
     private AtomicLong aLong;
 
-    private final DecimalConvertService decimalConvertService;
-    /**
-     * Key:originUrlMd5
-     * Value:idEncode
-     */
-    private final Map<String, String> originValueMap;
-    /**
-     * Key:idEncode
-     * Value:originUrl
-     */
-    private final Map<String, String> seqValueMap;
-
-
-    public UniqueSeqService(DecimalConvertService decimalConvertService) {
+    public UniqueSeqService(RedisTemplate redisTemplate, UrlMappingService urlMappingService, DecimalConvertService decimalConvertService) {
+        this.redisTemplate = redisTemplate;
+        this.urlMappingService = urlMappingService;
         this.decimalConvertService = decimalConvertService;
-        originValueMap = new ConcurrentHashMap();
-        seqValueMap = new ConcurrentHashMap();
     }
 
     /**
@@ -51,7 +46,8 @@ public class UniqueSeqService {
      * @Return java.lang.String
      */
     public String generateSeqEncode(String originUrlStr, String originUrlMd5) {
-        String seqEncode = originValueMap.get(originUrlMd5);
+        String originUrlMd5Key = ORIGIN_URL_MD5_KEY_PREFIX.concat(originUrlMd5);
+        String seqEncode = urlMappingService.querySeqEncode(originUrlMd5);
         if (seqEncode != null) {
             log.info("既有seqEncode：" + seqEncode);
             return seqEncode;
@@ -59,8 +55,15 @@ public class UniqueSeqService {
         long seq = aLong.incrementAndGet();
         log.info("新生成seq：" + seq);
         seqEncode = decimalConvertService.numberConvertToDecimal(seq, 62);
-        originValueMap.put(originUrlMd5, seqEncode);
-        seqValueMap.put(seqEncode, originUrlStr);
+        // 存数据库
+        urlMappingService.insertRecord(seq, originUrlStr, seqEncode, originUrlMd5, UrlTypeEnum.SYSTEM);
+        // 存redis
+        redisTemplate.opsForValue().set(originUrlMd5Key, seqEncode);
+        log.debug("{}放入redis成功", originUrlMd5Key);
+        String idEncodeKey = ID_ENCODE_PREFIX.concat(seqEncode);
+        redisTemplate.opsForValue().set(idEncodeKey, originUrlStr);
+        log.debug("{}放入redis成功", idEncodeKey);
+
         return seqEncode;
     }
 
@@ -71,8 +74,12 @@ public class UniqueSeqService {
      * @param seqEncode
      * @Return java.lang.String
      */
-    public String seqConvertToOriginUrl(String seqEncode) {
-        return seqValueMap.get(seqEncode);
+    public String seqEncodeConvertToOriginUrl(String seqEncode) {
+        String originUrl = urlMappingService.queryOriginUrl(seqEncode);
+        if (originUrl == null) {
+            throw new MyException(URL_NOT_EXIST);
+        }
+        return originUrl;
     }
 
     @PostConstruct

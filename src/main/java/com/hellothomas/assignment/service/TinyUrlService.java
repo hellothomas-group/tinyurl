@@ -1,6 +1,5 @@
 package com.hellothomas.assignment.service;
 
-import com.hellothomas.assignment.enums.UrlTypeEnum;
 import com.hellothomas.assignment.exception.MyException;
 import com.hellothomas.assignment.utils.UrlUtil;
 import org.apache.commons.lang.StringUtils;
@@ -27,13 +26,10 @@ public class TinyUrlService {
     private String address;
 
     private final UniqueSeqService uniqueSeqService;
-    private final DecimalConvertService decimalConvertService;
-    private final UrlMappingService urlMappingService;
 
-    public TinyUrlService(UniqueSeqService uniqueSeqService, DecimalConvertService decimalConvertService, UrlMappingService urlMappingService) {
+    public TinyUrlService(UniqueSeqService uniqueSeqService) {
         this.uniqueSeqService = uniqueSeqService;
-        this.decimalConvertService = decimalConvertService;
-        this.urlMappingService = urlMappingService;
+
     }
 
     /**
@@ -48,9 +44,6 @@ public class TinyUrlService {
         checkUrl(originUrl);
         String originUrlMd5 = DigestUtils.md5DigestAsHex(originUrl.getBytes());
         String seqEncode = uniqueSeqService.generateSeqEncode(originUrl, originUrlMd5);
-        // todo 性能优化
-        long seq = decimalConvertService.decimalConvertToNumber(seqEncode, 62);
-        urlMappingService.insertRecord(seq, originUrl, seqEncode, originUrlMd5, UrlTypeEnum.SYSTEM);
         return address + PROXY_PATH + "/" + seqEncode;
     }
 
@@ -69,12 +62,7 @@ public class TinyUrlService {
         }
 
         String seqEncode = StringUtils.removeStartIgnoreCase(tinyUrlStr, address + PROXY_PATH + "/");
-
-        String originUrlStr = uniqueSeqService.seqConvertToOriginUrl(seqEncode);
-        if (originUrlStr == null) {
-            throw new MyException(URL_FORMAT_ERROR);
-        }
-        return originUrlStr;
+        return uniqueSeqService.seqEncodeConvertToOriginUrl(seqEncode);
     }
 
     private void checkUrl(String urlStr) {

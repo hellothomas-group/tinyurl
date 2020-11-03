@@ -31,6 +31,6 @@ public class RedirectController {
     @ApiIgnore
     @GetMapping("/{seqString}")
     public String getOriginUrl(@PathVariable("seqString") String seqEncode) {
-        return "redirect:" + uniqueSeqService.seqConvertToOriginUrl(seqEncode);
+        return "redirect:" + uniqueSeqService.seqEncodeConvertToOriginUrl(seqEncode);
     }
 }

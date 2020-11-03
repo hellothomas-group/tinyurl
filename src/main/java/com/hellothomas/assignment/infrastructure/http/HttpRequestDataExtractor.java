@@ -19,7 +19,8 @@ import java.util.Enumeration;
 import java.util.List;
 
 import static com.hellothomas.assignment.constants.Constants.EMPTY_STRING;
-import static com.hellothomas.assignment.enums.ErrorCodeEnum.*;
+import static com.hellothomas.assignment.enums.ErrorCodeEnum.EXTRACT_BODY_ERROR;
+import static com.hellothomas.assignment.enums.ErrorCodeEnum.GENERATE_URI_ERROR;
 import static com.hellothomas.assignment.enums.ProtocolEnum.HTTP;
 import static com.hellothomas.assignment.enums.ProtocolEnum.HTTPS;
 
@@ -72,10 +73,7 @@ public class HttpRequestDataExtractor {
 
     public URI getUri(HttpServletRequest request, String prefixPath) {
         String seqEncode = extractUriWithout(request, prefixPath + "/");
-        String originUrlStr = uniqueSeqService.seqConvertToOriginUrl(seqEncode);
-        if (originUrlStr == null) {
-            throw new MyException(URL_NOT_EXIST);
-        }
+        String originUrlStr = uniqueSeqService.seqEncodeConvertToOriginUrl(seqEncode);
         return generateURI(originUrlStr);
     }
 
