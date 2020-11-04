@@ -1,7 +1,7 @@
 package com.hellothomas.assignment.api;
 
 import com.hellothomas.assignment.api.dto.CreateParams;
-import com.hellothomas.assignment.service.TinyUrlService;
+import com.hellothomas.assignment.applicaton.TinyUrlService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

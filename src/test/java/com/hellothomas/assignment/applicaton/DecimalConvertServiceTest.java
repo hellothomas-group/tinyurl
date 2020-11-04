@@ -1,4 +1,4 @@
-package com.hellothomas.assignment.service;
+package com.hellothomas.assignment.applicaton;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
