@@ -1,7 +1,7 @@
 package com.hellothomas.assignment.service;
 
 import com.hellothomas.assignment.constants.enums.UrlTypeEnum;
-import com.hellothomas.assignment.exception.MyException;
+import com.hellothomas.assignment.infrastructure.exception.MyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;

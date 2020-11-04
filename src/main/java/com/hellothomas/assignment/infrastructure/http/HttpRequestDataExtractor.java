@@ -1,6 +1,6 @@
 package com.hellothomas.assignment.infrastructure.http;
 
-import com.hellothomas.assignment.exception.MyException;
+import com.hellothomas.assignment.infrastructure.exception.MyException;
 import com.hellothomas.assignment.service.UniqueSeqService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;

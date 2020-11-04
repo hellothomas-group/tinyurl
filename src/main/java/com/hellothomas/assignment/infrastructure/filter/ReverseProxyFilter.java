@@ -1,6 +1,6 @@
 package com.hellothomas.assignment.infrastructure.filter;
 
-import com.hellothomas.assignment.exception.MyException;
+import com.hellothomas.assignment.infrastructure.exception.MyException;
 import com.hellothomas.assignment.infrastructure.http.HttpRequestDataExtractor;
 import com.hellothomas.assignment.infrastructure.http.RequestForwarder;
 import lombok.extern.slf4j.Slf4j;

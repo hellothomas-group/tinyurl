@@ -1,4 +1,4 @@
-package com.hellothomas.assignment.exception;
+package com.hellothomas.assignment.infrastructure.exception;
 
 import com.hellothomas.assignment.constants.enums.ICodeEnum;
 import lombok.Getter;

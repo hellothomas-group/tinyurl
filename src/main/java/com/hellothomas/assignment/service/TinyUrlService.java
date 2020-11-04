@@ -1,6 +1,6 @@
 package com.hellothomas.assignment.service;
 
-import com.hellothomas.assignment.exception.MyException;
+import com.hellothomas.assignment.infrastructure.exception.MyException;
 import com.hellothomas.assignment.constants.utils.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;

@@ -8,7 +8,7 @@ package com.hellothomas.assignment.infrastructure.config;
  * @version 1.0
  */
 
-import com.hellothomas.assignment.exception.MyException;
+import com.hellothomas.assignment.infrastructure.exception.MyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 
