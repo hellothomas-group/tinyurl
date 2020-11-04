@@ -1,18 +1,22 @@
 package com.hellothomas.assignment.applicaton;
 
 import com.hellothomas.assignment.constants.enums.UrlTypeEnum;
+import com.hellothomas.assignment.constants.utils.SleepUtil;
+import com.hellothomas.assignment.domain.UrlSequence;
 import com.hellothomas.assignment.infrastructure.exception.MyException;
+import com.hellothomas.assignment.infrastructure.mapper.UrlSequenceMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.concurrent.atomic.AtomicLong;
 
-import static com.hellothomas.assignment.constants.Constants.ID_ENCODE_PREFIX;
-import static com.hellothomas.assignment.constants.Constants.ORIGIN_URL_MD5_KEY_PREFIX;
-import static com.hellothomas.assignment.constants.enums.ErrorCodeEnum.URL_NOT_EXIST;
+import static com.hellothomas.assignment.constants.Constants.*;
+import static com.hellothomas.assignment.constants.enums.ErrorCodeEnum.*;
 
 /**
  * @ClassName UniqueSeqService
@@ -27,15 +31,21 @@ public class UniqueSeqService {
     private final RedisTemplate redisTemplate;
     private final UrlMappingService urlMappingService;
     private final DecimalConvertService decimalConvertService;
+    private final UrlSequenceMapper urlSequenceMapper;
 
-    @Value("${seq.init-value}")
-    private Long seqInitValue;
-    private AtomicLong aLong;
+    @Value("${seq.increment-step}")
+    private Long seqIncrementStep = 1L;
+    private AtomicLong atomicCount;
+    private volatile Long startSeq;
+    private String hostName;
+    private String hostAddress;
 
-    public UniqueSeqService(RedisTemplate redisTemplate, UrlMappingService urlMappingService, DecimalConvertService decimalConvertService) {
+    public UniqueSeqService(RedisTemplate redisTemplate, UrlMappingService urlMappingService, DecimalConvertService decimalConvertService, UrlSequenceMapper urlSequenceMapper) {
         this.redisTemplate = redisTemplate;
         this.urlMappingService = urlMappingService;
         this.decimalConvertService = decimalConvertService;
+        this.urlSequenceMapper = urlSequenceMapper;
+        this.atomicCount = new AtomicLong();
     }
 
     /**
@@ -52,7 +62,8 @@ public class UniqueSeqService {
             log.info("既有seqEncode：" + seqEncode);
             return seqEncode;
         }
-        long seq = aLong.incrementAndGet();
+        long seq = generateSeq();
+
         log.info("新生成seq：" + seq);
         seqEncode = decimalConvertService.numberConvertToDecimal(seq, 62);
         // 存数据库
@@ -65,6 +76,28 @@ public class UniqueSeqService {
         log.debug("{}放入redis成功", idEncodeKey);
 
         return seqEncode;
+    }
+
+    private long generateSeq() {
+        // 最多重试10次
+        int repeatCount = 10;
+        while (repeatCount > 0) {
+            long seqCount = atomicCount.incrementAndGet();
+            if (seqCount <= seqIncrementStep) {
+                return startSeq + seqCount - 1;
+            } else if (seqCount == seqIncrementStep + 1) {
+                refreshUrlSeqRange();
+                continue;
+            } else {
+                log.info("等待重试生成序号");
+                SleepUtil.millisecond(500);
+            }
+
+            repeatCount--;
+        }
+
+        log.error(GENERATE_SEQ_ERROR.getMessage());
+        throw new MyException(GENERATE_SEQ_ERROR);
     }
 
     /**
@@ -84,7 +117,40 @@ public class UniqueSeqService {
 
     @PostConstruct
     private void init() {
-        aLong = new AtomicLong(seqInitValue);
+        try {
+            InetAddress localhost = InetAddress.getLocalHost();
+            hostName = localhost == null ? DEFAULT_HOST_NAME : localhost.getHostName();
+            hostAddress = localhost == null ? DEFAULT_HOST_ADDRESS : localhost.getHostAddress();
+        } catch (UnknownHostException e) {
+            log.warn(GET_LOCAL_HOST_ERROR.getMessage(), e);
+        }
+        refreshUrlSeqRange();
+    }
+
+    private synchronized void refreshUrlSeqRange() {
+        log.info("hostName:{}, hostAddress:{}, 刷新UrlSeqRange", hostName, hostAddress);
+        long newId = 1;
+        long newStartSeq = 1;
+        UrlSequence maxIdUrlSequence = urlSequenceMapper.selectByMaxPrimaryKey();
+        if (maxIdUrlSequence != null) {
+            newId = maxIdUrlSequence.getId() + 1;
+            newStartSeq = maxIdUrlSequence.getEndSeq() + 1;
+        }
+
+        UrlSequence urlSequence = UrlSequence.builder()
+                .id(newId)
+                .hostName(hostName)
+                .hostIp(hostAddress)
+                .startSeq(newStartSeq)
+                .endSeq(newStartSeq + seqIncrementStep - 1)
+                .build();
+
+        urlSequenceMapper.insert(urlSequence);
+
+        // 重置起始序号和计数器
+        startSeq = newStartSeq;
+        atomicCount.set(0);
+        log.debug("新起始序号{}, 步进{}", startSeq, seqIncrementStep);
     }
 
 }

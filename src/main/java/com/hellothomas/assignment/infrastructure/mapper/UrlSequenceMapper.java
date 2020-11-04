@@ -30,4 +30,6 @@ public interface UrlSequenceMapper {
     int updateByPrimaryKeySelective(UrlSequence record);
 
     int updateByPrimaryKey(UrlSequence record);
+
+    UrlSequence selectByMaxPrimaryKey();
 }
