@@ -12,8 +12,8 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 
-import static com.hellothomas.assignment.enums.ErrorCodeEnum.FORWARD_ERROR;
-import static com.hellothomas.assignment.enums.ProtocolEnum.HTTPS;
+import static com.hellothomas.assignment.constants.enums.ErrorCodeEnum.FORWARD_ERROR;
+import static com.hellothomas.assignment.constants.enums.ProtocolEnum.HTTPS;
 
 @Slf4j
 @Component

@@ -1,4 +1,4 @@
-package com.hellothomas.assignment.enums;
+package com.hellothomas.assignment.constants.enums;
 
 public enum ProtocolEnum {
     HTTP("http"),

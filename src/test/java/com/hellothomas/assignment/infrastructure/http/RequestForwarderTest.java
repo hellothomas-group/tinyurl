@@ -8,7 +8,7 @@ import org.junit.runners.JUnit4;
 
 import java.net.URI;
 
-import static com.hellothomas.assignment.enums.ErrorCodeEnum.RESPONSE_PROCESS_ERROR;
+import static com.hellothomas.assignment.constants.enums.ErrorCodeEnum.RESPONSE_PROCESS_ERROR;
 
 @RunWith(JUnit4.class)
 @Slf4j

@@ -1,4 +1,4 @@
-package com.hellothomas.assignment.pojo;
+package com.hellothomas.assignment.api.dto;
 
 import lombok.Getter;
 import lombok.Setter;

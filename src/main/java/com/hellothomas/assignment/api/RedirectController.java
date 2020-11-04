@@ -1,4 +1,4 @@
-package com.hellothomas.assignment.controller;
+package com.hellothomas.assignment.api;
 
 import com.hellothomas.assignment.service.UniqueSeqService;
 import lombok.extern.slf4j.Slf4j;

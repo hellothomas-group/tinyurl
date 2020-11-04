@@ -1,6 +1,6 @@
 package com.hellothomas.assignment.exception;
 
-import com.hellothomas.assignment.enums.ICodeEnum;
+import com.hellothomas.assignment.constants.enums.ICodeEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

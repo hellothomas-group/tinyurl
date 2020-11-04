@@ -2,7 +2,7 @@ package com.hellothomas.assignment.service;
 
 import com.hellothomas.assignment.domain.UrlMapping;
 import com.hellothomas.assignment.domain.UrlMappingExample;
-import com.hellothomas.assignment.enums.UrlTypeEnum;
+import com.hellothomas.assignment.constants.enums.UrlTypeEnum;
 import com.hellothomas.assignment.infrastructure.mapper.UrlMappingMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;

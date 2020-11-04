@@ -1,6 +1,6 @@
 package com.hellothomas.assignment.service;
 
-import com.hellothomas.assignment.enums.UrlTypeEnum;
+import com.hellothomas.assignment.constants.enums.UrlTypeEnum;
 import com.hellothomas.assignment.exception.MyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import static com.hellothomas.assignment.constants.Constants.ID_ENCODE_PREFIX;
 import static com.hellothomas.assignment.constants.Constants.ORIGIN_URL_MD5_KEY_PREFIX;
-import static com.hellothomas.assignment.enums.ErrorCodeEnum.URL_NOT_EXIST;
+import static com.hellothomas.assignment.constants.enums.ErrorCodeEnum.URL_NOT_EXIST;
 
 /**
  * @ClassName UniqueSeqService

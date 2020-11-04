@@ -1,6 +1,6 @@
-package com.hellothomas.assignment.controller;
+package com.hellothomas.assignment.api;
 
-import com.hellothomas.assignment.pojo.CreateParams;
+import com.hellothomas.assignment.api.dto.CreateParams;
 import com.hellothomas.assignment.service.TinyUrlService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

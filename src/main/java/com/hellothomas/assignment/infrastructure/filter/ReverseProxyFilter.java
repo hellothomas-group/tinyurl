@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.net.URI;
 
 import static com.hellothomas.assignment.constants.Constants.PROXY_PATH;
-import static com.hellothomas.assignment.enums.ErrorCodeEnum.RESPONSE_PROCESS_ERROR;
+import static com.hellothomas.assignment.constants.enums.ErrorCodeEnum.RESPONSE_PROCESS_ERROR;
 
 @Slf4j
 public class ReverseProxyFilter extends OncePerRequestFilter {
