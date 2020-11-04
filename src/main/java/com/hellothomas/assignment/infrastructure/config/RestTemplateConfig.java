@@ -45,7 +45,6 @@ public class RestTemplateConfig {
         HttpsClientRequestFactory httpsClientRequestFactory = new HttpsClientRequestFactory();
         httpsClientRequestFactory.setConnectTimeout(restTemplateProperties.getConnectTimeout());
         httpsClientRequestFactory.setReadTimeout(restTemplateProperties.getReadTimeout());
-        RestTemplate restTemplate = new RestTemplate(httpsClientRequestFactory);
-        return restTemplate;
+        return new RestTemplate(httpsClientRequestFactory);
     }
 }

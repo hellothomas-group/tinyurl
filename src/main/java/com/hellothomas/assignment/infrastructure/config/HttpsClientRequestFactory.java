@@ -8,6 +8,8 @@ package com.hellothomas.assignment.infrastructure.config;
  * @version 1.0
  */
 
+import com.hellothomas.assignment.exception.MyException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 
 import javax.net.ssl.*;
@@ -17,6 +19,9 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.security.cert.X509Certificate;
 
+import static com.hellothomas.assignment.enums.ErrorCodeEnum.HTTPS_URL_CONNECTION_IS_EXCEPTED;
+import static com.hellothomas.assignment.enums.ErrorCodeEnum.SSL_SOCKET_IS_EXCEPTED;
+
 /**
  * @classname HttpsClientRequestFactory
  * @author Thomas
@@ -24,13 +29,14 @@ import java.security.cert.X509Certificate;
  * @description
  * @version 1.0
  */
+@Slf4j
 public class HttpsClientRequestFactory extends SimpleClientHttpRequestFactory {
 
     @Override
     protected void prepareConnection(HttpURLConnection connection, String httpMethod) {
         try {
             if (!(connection instanceof HttpsURLConnection)) {
-                throw new RuntimeException("An instance of HttpsURLConnection is expected");
+                throw new MyException(HTTPS_URL_CONNECTION_IS_EXCEPTED);
             }
 
             HttpsURLConnection httpsConnection = (HttpsURLConnection) connection;
@@ -56,16 +62,11 @@ public class HttpsClientRequestFactory extends SimpleClientHttpRequestFactory {
             sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
             httpsConnection.setSSLSocketFactory(new MyCustomSSLSocketFactory(sslContext.getSocketFactory()));
 
-            httpsConnection.setHostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String s, SSLSession sslSession) {
-                    return true;
-                }
-            });
+            httpsConnection.setHostnameVerifier((s, sslSession) -> true);
 
             super.prepareConnection(httpsConnection, httpMethod);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("HttpsClient异常,异常为{0}", e);
         }
     }
 
@@ -134,7 +135,7 @@ public class HttpsClientRequestFactory extends SimpleClientHttpRequestFactory {
 
         private Socket overrideProtocol(final Socket socket) {
             if (!(socket instanceof SSLSocket)) {
-                throw new RuntimeException("An instance of SSLSocket is expected");
+                throw new MyException(SSL_SOCKET_IS_EXCEPTED);
             }
             ((SSLSocket) socket).setEnabledProtocols(new String[]{"TLSv1"});
             return socket;

@@ -1,7 +1,6 @@
 package com.hellothomas.assignment.infrastructure.http;
 
 import com.hellothomas.assignment.exception.MyException;
-import com.hellothomas.assignment.service.DecimalConvertService;
 import com.hellothomas.assignment.service.UniqueSeqService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
@@ -29,11 +28,9 @@ import static com.hellothomas.assignment.enums.ProtocolEnum.HTTPS;
 public class HttpRequestDataExtractor {
 
     private final UniqueSeqService uniqueSeqService;
-    private final DecimalConvertService decimalConvertService;
 
-    public HttpRequestDataExtractor(UniqueSeqService uniqueSeqService, DecimalConvertService decimalConvertService) {
+    public HttpRequestDataExtractor(UniqueSeqService uniqueSeqService) {
         this.uniqueSeqService = uniqueSeqService;
-        this.decimalConvertService = decimalConvertService;
     }
 
     public byte[] extractBody(HttpServletRequest request) {

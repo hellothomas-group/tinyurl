@@ -18,7 +18,7 @@ import java.text.MessageFormat;
 @Getter
 @ToString
 public class MyException extends RuntimeException {
-    private String code;
+    private final String code;
 
     public MyException(ICodeEnum codeEnum) {
         super(codeEnum.getMessage());

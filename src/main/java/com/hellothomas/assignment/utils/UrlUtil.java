@@ -1,11 +1,7 @@
 package com.hellothomas.assignment.utils;
 
-import com.hellothomas.assignment.exception.MyException;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @ClassName UrlUtil
@@ -15,6 +11,10 @@ import java.util.regex.Pattern;
  * @Version 1.0
  */
 public class UrlUtil {
+
+    private UrlUtil() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * @Author 80234613

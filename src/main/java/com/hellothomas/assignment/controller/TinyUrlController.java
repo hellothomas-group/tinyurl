@@ -59,7 +59,7 @@ public class TinyUrlController {
      * @param tinyUrlStr
      * @return org.springframework.http.ResponseEntity<java.util.Map>
      */
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    @GetMapping(value = "/get")
     @ApiOperation(value = "查询originURL")
     public ResponseEntity<Map> getOriginURL(@RequestParam("tiny_url") String tinyUrlStr) {
         Map<String, String> resultMap = new HashMap();
