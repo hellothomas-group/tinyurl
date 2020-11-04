@@ -4,6 +4,7 @@ import com.hellothomas.assignment.domain.UrlMapping;
 import com.hellothomas.assignment.domain.UrlMappingExample;
 import com.hellothomas.assignment.enums.UrlTypeEnum;
 import com.hellothomas.assignment.infrastructure.mapper.UrlMappingMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import static com.hellothomas.assignment.constants.Constants.ORIGIN_URL_MD5_KEY_
  * @description
  * @version 1.0
  */
+@Slf4j
 @Service
 public class UrlMappingService {
     private final RedisTemplate redisTemplate;
@@ -41,6 +43,7 @@ public class UrlMappingService {
         List<UrlMapping> urlMappings = urlMappingMapper.selectByExample(urlMappingExample);
 
         if (!urlMappings.isEmpty()) {
+            log.debug("redis不存在{},数据库存在", originUrlMd5Key);
             seqEncode = urlMappings.get(0).getTinyUrl();
             // redis不存在,数据库存在
             redisTemplate.opsForValue().set(originUrlMd5Key, seqEncode);
