@@ -129,8 +129,8 @@ public class UniqueSeqService {
         int refreshCount = 1;
         while (refreshCount <= REFRESH_REPEAT_COUNT) {
             int delayMs = random.nextInt(REFRESH_WAIT_MAX_MS);
-            SleepUtil.millisecond(delayMs);
             log.info("等待{}ms, 第{}次刷新UrlSeqRange", delayMs, refreshCount);
+            SleepUtil.millisecond(delayMs);
 
             try {
                 long newId = 1;
