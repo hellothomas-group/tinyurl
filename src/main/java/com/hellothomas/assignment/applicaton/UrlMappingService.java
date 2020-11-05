@@ -81,6 +81,16 @@ public class UrlMappingService {
                 .originUrlMd5(originUrlMd5)
                 .urlType(urlTypeEnum.getValue())
                 .build();
-        return urlMappingMapper.insertSelective(urlMapping);
+        int row = urlMappingMapper.insertSelective(urlMapping);
+
+        // 存redis
+        String originUrlMd5Key = ORIGIN_URL_MD5_KEY_PREFIX.concat(originUrlMd5);
+        redisTemplate.opsForValue().set(originUrlMd5Key, seqEncode);
+        log.debug("{}放入redis成功", originUrlMd5Key);
+        String idEncodeKey = ID_ENCODE_PREFIX.concat(seqEncode);
+        redisTemplate.opsForValue().set(idEncodeKey, originUrl);
+        log.debug("{}放入redis成功", idEncodeKey);
+
+        return row;
     }
 }
