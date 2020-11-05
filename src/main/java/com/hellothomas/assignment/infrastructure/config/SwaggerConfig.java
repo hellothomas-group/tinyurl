@@ -37,8 +37,8 @@ public class SwaggerConfig {
                 .description("API接口文档")
                 .termsOfServiceUrl("https://www.baidu.com/duty")
                 .contact(new Contact("Thomas",
-                                    "http://www.baidu.com",
-                                    "tyty2017@cmbchina.com"))
+                        "http://www.baidu.com",
+                        "tyty2017@cmbchina.com"))
                 .version("1.0")
                 .build();
     }

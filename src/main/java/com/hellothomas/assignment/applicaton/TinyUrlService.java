@@ -1,7 +1,7 @@
 package com.hellothomas.assignment.applicaton;
 
-import com.hellothomas.assignment.infrastructure.exception.MyException;
 import com.hellothomas.assignment.common.utils.UrlUtil;
+import com.hellothomas.assignment.infrastructure.exception.MyException;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -22,10 +22,9 @@ import static com.hellothomas.assignment.common.enums.ErrorCodeEnum.URL_FORMAT_E
 @Service("tinyURLService")
 public class TinyUrlService {
 
+    private final UniqueSeqService uniqueSeqService;
     @Value("${tiny-url.address}")
     private String address;
-
-    private final UniqueSeqService uniqueSeqService;
 
     public TinyUrlService(UniqueSeqService uniqueSeqService) {
         this.uniqueSeqService = uniqueSeqService;
