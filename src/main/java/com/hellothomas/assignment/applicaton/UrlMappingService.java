@@ -1,8 +1,8 @@
 package com.hellothomas.assignment.applicaton;
 
+import com.hellothomas.assignment.common.enums.UrlTypeEnum;
 import com.hellothomas.assignment.domain.UrlMapping;
 import com.hellothomas.assignment.domain.UrlMappingExample;
-import com.hellothomas.assignment.common.enums.UrlTypeEnum;
 import com.hellothomas.assignment.infrastructure.mapper.UrlMappingMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -69,7 +69,7 @@ public class UrlMappingService {
             redisTemplate.opsForValue().set(idEncodeKey, originUrl);
         }
 
-        return seqEncode;
+        return originUrl;
     }
 
     public int insertRecord(long id, String originUrl, String seqEncode, String originUrlMd5,
