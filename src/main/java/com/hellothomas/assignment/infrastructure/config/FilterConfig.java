@@ -9,7 +9,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 
-import static com.hellothomas.assignment.common.Constants.PROXY_PATH;
+import static com.hellothomas.assignment.common.constants.Constants.PROXY_PATH;
 
 /**
  * @className FilterConfig

@@ -15,7 +15,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.concurrent.atomic.AtomicLong;
 
-import static com.hellothomas.assignment.common.Constants.*;
+import static com.hellothomas.assignment.common.constants.Constants.*;
 import static com.hellothomas.assignment.common.enums.ErrorCodeEnum.*;
 
 /**

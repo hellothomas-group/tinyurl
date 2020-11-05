@@ -9,7 +9,7 @@ import org.springframework.util.DigestUtils;
 
 import java.net.URL;
 
-import static com.hellothomas.assignment.common.Constants.PROXY_PATH;
+import static com.hellothomas.assignment.common.constants.Constants.PROXY_PATH;
 import static com.hellothomas.assignment.common.enums.ErrorCodeEnum.URL_FORMAT_ERROR;
 
 /**

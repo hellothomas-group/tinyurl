@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.hellothomas.assignment.common.Constants.ID_ENCODE_PREFIX;
-import static com.hellothomas.assignment.common.Constants.ORIGIN_URL_MD5_KEY_PREFIX;
+import static com.hellothomas.assignment.common.constants.Constants.ID_ENCODE_PREFIX;
+import static com.hellothomas.assignment.common.constants.Constants.ORIGIN_URL_MD5_KEY_PREFIX;
 
 /**
  * @className UrlMappingService
