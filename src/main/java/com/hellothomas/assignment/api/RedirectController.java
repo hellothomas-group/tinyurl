@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import springfox.documentation.annotations.ApiIgnore;
 
-import static com.hellothomas.assignment.constants.Constants.PROXY_PATH;
+import static com.hellothomas.assignment.common.Constants.PROXY_PATH;
 
 /**
  * @classname RedirectController

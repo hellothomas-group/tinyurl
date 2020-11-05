@@ -1,4 +1,4 @@
-package com.hellothomas.assignment.constants.utils;
+package com.hellothomas.assignment.common.utils;
 
 import java.net.MalformedURLException;
 import java.net.URL;

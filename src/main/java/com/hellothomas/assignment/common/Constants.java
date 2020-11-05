@@ -1,4 +1,4 @@
-package com.hellothomas.assignment.constants;
+package com.hellothomas.assignment.common;
 
 /**
  * @className Constants

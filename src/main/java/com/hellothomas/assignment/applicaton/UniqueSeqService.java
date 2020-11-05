@@ -1,7 +1,7 @@
 package com.hellothomas.assignment.applicaton;
 
-import com.hellothomas.assignment.constants.enums.UrlTypeEnum;
-import com.hellothomas.assignment.constants.utils.SleepUtil;
+import com.hellothomas.assignment.common.enums.UrlTypeEnum;
+import com.hellothomas.assignment.common.utils.SleepUtil;
 import com.hellothomas.assignment.domain.UrlSequence;
 import com.hellothomas.assignment.infrastructure.exception.MyException;
 import com.hellothomas.assignment.infrastructure.mapper.UrlSequenceMapper;
@@ -15,8 +15,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.concurrent.atomic.AtomicLong;
 
-import static com.hellothomas.assignment.constants.Constants.*;
-import static com.hellothomas.assignment.constants.enums.ErrorCodeEnum.*;
+import static com.hellothomas.assignment.common.Constants.*;
+import static com.hellothomas.assignment.common.enums.ErrorCodeEnum.*;
 
 /**
  * @ClassName UniqueSeqService

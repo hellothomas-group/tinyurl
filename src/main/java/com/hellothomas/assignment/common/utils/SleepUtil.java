@@ -1,10 +1,10 @@
-package com.hellothomas.assignment.constants.utils;
+package com.hellothomas.assignment.common.utils;
 
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.hellothomas.assignment.constants.enums.ErrorCodeEnum.THREAD_SLEEP_ERROR;
+import static com.hellothomas.assignment.common.enums.ErrorCodeEnum.THREAD_SLEEP_ERROR;
 
 /**
  * @classname SleepUtil

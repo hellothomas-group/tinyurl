@@ -1,4 +1,4 @@
-package com.hellothomas.assignment.constants.enums;
+package com.hellothomas.assignment.common.enums;
 
 /**
  * @ClassName ICodeEnum

@@ -1,7 +1,7 @@
 package com.hellothomas.assignment.applicaton;
 
 import com.hellothomas.assignment.infrastructure.exception.MyException;
-import com.hellothomas.assignment.constants.utils.UrlUtil;
+import com.hellothomas.assignment.common.utils.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -9,8 +9,8 @@ import org.springframework.util.DigestUtils;
 
 import java.net.URL;
 
-import static com.hellothomas.assignment.constants.Constants.PROXY_PATH;
-import static com.hellothomas.assignment.constants.enums.ErrorCodeEnum.URL_FORMAT_ERROR;
+import static com.hellothomas.assignment.common.Constants.PROXY_PATH;
+import static com.hellothomas.assignment.common.enums.ErrorCodeEnum.URL_FORMAT_ERROR;
 
 /**
  * @ClassName TinyUrlService

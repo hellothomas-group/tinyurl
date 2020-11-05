@@ -1,4 +1,4 @@
-package com.hellothomas.assignment.constants.enums;
+package com.hellothomas.assignment.common.enums;
 
 public enum ErrorCodeEnum implements ICodeEnum {
     URL_FORMAT_ERROR("CODE001", "URL格式错误"),

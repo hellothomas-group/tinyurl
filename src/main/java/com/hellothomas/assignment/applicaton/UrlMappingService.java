@@ -2,7 +2,7 @@ package com.hellothomas.assignment.applicaton;
 
 import com.hellothomas.assignment.domain.UrlMapping;
 import com.hellothomas.assignment.domain.UrlMappingExample;
-import com.hellothomas.assignment.constants.enums.UrlTypeEnum;
+import com.hellothomas.assignment.common.enums.UrlTypeEnum;
 import com.hellothomas.assignment.infrastructure.mapper.UrlMappingMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.hellothomas.assignment.constants.Constants.ID_ENCODE_PREFIX;
-import static com.hellothomas.assignment.constants.Constants.ORIGIN_URL_MD5_KEY_PREFIX;
+import static com.hellothomas.assignment.common.Constants.ID_ENCODE_PREFIX;
+import static com.hellothomas.assignment.common.Constants.ORIGIN_URL_MD5_KEY_PREFIX;
 
 /**
  * @className UrlMappingService

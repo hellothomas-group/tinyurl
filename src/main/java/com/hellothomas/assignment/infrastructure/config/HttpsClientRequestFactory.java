@@ -19,8 +19,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.security.cert.X509Certificate;
 
-import static com.hellothomas.assignment.constants.enums.ErrorCodeEnum.HTTPS_URL_CONNECTION_IS_EXCEPTED;
-import static com.hellothomas.assignment.constants.enums.ErrorCodeEnum.SSL_SOCKET_IS_EXCEPTED;
+import static com.hellothomas.assignment.common.enums.ErrorCodeEnum.HTTPS_URL_CONNECTION_IS_EXCEPTED;
+import static com.hellothomas.assignment.common.enums.ErrorCodeEnum.SSL_SOCKET_IS_EXCEPTED;
 
 /**
  * @classname HttpsClientRequestFactory

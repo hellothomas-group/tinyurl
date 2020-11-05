@@ -7,10 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 
-import static com.hellothomas.assignment.constants.Constants.PROXY_PATH;
+import static com.hellothomas.assignment.common.Constants.PROXY_PATH;
 
 /**
  * @className FilterConfig
