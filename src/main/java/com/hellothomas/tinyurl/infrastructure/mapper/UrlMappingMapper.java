@@ -1,0 +1,33 @@
+package com.hellothomas.tinyurl.infrastructure.mapper;
+
+import com.hellothomas.tinyurl.domain.UrlMapping;
+import com.hellothomas.tinyurl.domain.UrlMappingExample;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+@Component
+public interface UrlMappingMapper {
+    long countByExample(UrlMappingExample example);
+
+    int deleteByExample(UrlMappingExample example);
+
+    int deleteByPrimaryKey(Long id);
+
+    int insert(UrlMapping record);
+
+    int insertSelective(UrlMapping record);
+
+    List<UrlMapping> selectByExample(UrlMappingExample example);
+
+    UrlMapping selectByPrimaryKey(Long id);
+
+    int updateByExampleSelective(@Param("record") UrlMapping record, @Param("example") UrlMappingExample example);
+
+    int updateByExample(@Param("record") UrlMapping record, @Param("example") UrlMappingExample example);
+
+    int updateByPrimaryKeySelective(UrlMapping record);
+
+    int updateByPrimaryKey(UrlMapping record);
+}
