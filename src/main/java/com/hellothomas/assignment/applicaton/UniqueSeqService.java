@@ -38,7 +38,7 @@ public class UniqueSeqService {
     private final DecimalConvertService decimalConvertService;
     private final UrlSequenceMapper urlSequenceMapper;
 
-    @Value("${seq.increment-step}")
+    @Value("${tiny-url.seq.increment-step}")
     private Long seqIncrementStep = 1L;
     private AtomicLong atomicCount;
     private volatile Long startSeq;
@@ -46,7 +46,8 @@ public class UniqueSeqService {
     private String hostAddress;
     private Random random;
 
-    public UniqueSeqService(UrlMappingService urlMappingService, DecimalConvertService decimalConvertService, UrlSequenceMapper urlSequenceMapper) {
+    public UniqueSeqService(UrlMappingService urlMappingService, DecimalConvertService decimalConvertService,
+                            UrlSequenceMapper urlSequenceMapper) {
         this.urlMappingService = urlMappingService;
         this.decimalConvertService = decimalConvertService;
         this.urlSequenceMapper = urlSequenceMapper;
@@ -84,6 +85,7 @@ public class UniqueSeqService {
             if (seqCount <= seqIncrementStep) {
                 return startSeq + seqCount - 1;
             } else if (seqCount == seqIncrementStep + 1) {
+                // todo 刷新失败情况
                 refreshUrlSeqRange();
                 continue;
             } else {
@@ -122,10 +124,14 @@ public class UniqueSeqService {
         } catch (UnknownHostException e) {
             log.warn(GET_LOCAL_HOST_ERROR.getMessage(), e);
         }
-        refreshUrlSeqRange();
+        boolean refreshResult = refreshUrlSeqRange();
+        if (!refreshResult) {
+            log.error(REFRESH_EXIT_ERROR.getMessage());
+            throw new MyException(REFRESH_EXIT_ERROR);
+        }
     }
 
-    private synchronized void refreshUrlSeqRange() {
+    private synchronized boolean refreshUrlSeqRange() {
         int refreshCount = 1;
         while (refreshCount <= REFRESH_REPEAT_COUNT) {
             int delayMs = random.nextInt(REFRESH_WAIT_MAX_MS);
@@ -155,15 +161,15 @@ public class UniqueSeqService {
                 startSeq = newStartSeq;
                 atomicCount.set(0);
                 log.info("新起始序号{}, 步进{}", startSeq, seqIncrementStep);
-                return;
+                return true;
             } catch (Exception e) {
-                log.warn("第{}次刷新UrlSeqRange失败, 异常为{}", refreshCount, delayMs, e);
+                log.warn("第{}次刷新UrlSeqRange失败, 异常为{}", refreshCount, e);
             }
 
             refreshCount++;
         }
 
-
+        return false;
     }
 
 }

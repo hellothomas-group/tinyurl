@@ -7,6 +7,7 @@ public enum ErrorCodeEnum implements ICodeEnum {
     GET_LOCAL_HOST_ERROR("CODE004", "获取本机host异常,异常为{0}"),
     THREAD_SLEEP_ERROR("CODE005", "线程休眠异常,异常为{0}"),
     GENERATE_SEQ_ERROR("CODE006", "生成序号失败"),
+    REFRESH_EXIT_ERROR("CODE007", "刷新重试超限退出"),
     ;
 
     private String code;

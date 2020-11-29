@@ -35,10 +35,10 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("长链接转短链接Swagger2文档")
                 .description("API接口文档")
-                .termsOfServiceUrl("https://www.baidu.com/duty")
+                .termsOfServiceUrl("https://www.hellothomas.com/duty")
                 .contact(new Contact("Thomas",
-                        "http://www.baidu.com",
-                        "tyty2017@cmbchina.com"))
+                        "http://www.hellothomas.com",
+                        "tyty2017@qq.com"))
                 .version("1.0")
                 .build();
     }
