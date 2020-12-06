@@ -1,12 +1,12 @@
 package com.hellothomas.tinyurl.applicaton;
 
-import com.hellothomas.tinyurl.common.enums.UrlTypeEnum;
 import com.hellothomas.tinyurl.common.utils.SleepUtil;
 import com.hellothomas.tinyurl.domain.UrlSequence;
 import com.hellothomas.tinyurl.infrastructure.exception.MyException;
 import com.hellothomas.tinyurl.infrastructure.mapper.UrlSequenceMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -62,21 +62,18 @@ public class UniqueSeqService {
      * @param originUrlMd5
      * @Return java.lang.String
      */
+    @CachePut(cacheNames = "OriginUrlMd5", key = "#originUrlMd5", unless = "#result == null")
     public String generateSeqEncode(String originUrlStr, String originUrlMd5) {
-        String seqEncode = urlMappingService.querySeqEncode(originUrlMd5);
-        if (seqEncode != null) {
-            log.info("既有seqEncode：" + seqEncode);
-            return seqEncode;
-        }
         long seq = generateSeq();
-
         log.info("新生成seq：" + seq);
-        seqEncode = decimalConvertService.numberConvertToDecimal(seq, 62);
-        // 存数据库和redis
-        urlMappingService.insertRecord(seq, originUrlStr, seqEncode, originUrlMd5, UrlTypeEnum.SYSTEM);
+
+        String seqEncode = decimalConvertService.numberConvertToDecimal(seq, 62);
+
+        urlMappingService.saveUrlMapping(originUrlStr, originUrlMd5, seq, seqEncode);
 
         return seqEncode;
     }
+
 
     private long generateSeq() {
         int generateCount = 1;

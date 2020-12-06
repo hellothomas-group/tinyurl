@@ -3,6 +3,7 @@ package com.hellothomas.tinyurl;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 /**
  * @ClassName MainApplication
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Descripton
  * @Version 1.0
  */
+@EnableCaching
 @SpringBootApplication
 @MapperScan(basePackages = {"com.hellothomas.tinyurl.infrastructure.mapper"})
 public class MainApplication {

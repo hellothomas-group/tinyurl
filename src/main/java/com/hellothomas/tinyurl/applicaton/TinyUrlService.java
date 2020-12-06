@@ -2,7 +2,8 @@ package com.hellothomas.tinyurl.applicaton;
 
 import com.hellothomas.tinyurl.common.utils.UrlUtil;
 import com.hellothomas.tinyurl.infrastructure.exception.MyException;
-import org.apache.commons.lang.StringUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -19,14 +20,17 @@ import static com.hellothomas.tinyurl.common.enums.ErrorCodeEnum.URL_FORMAT_ERRO
  * @Descripton TinyUrlService
  * @Version 1.0
  */
-@Service("tinyURLService")
+@Service
+@Slf4j
 public class TinyUrlService {
 
+    private final UrlMappingService urlMappingService;
     private final UniqueSeqService uniqueSeqService;
     @Value("${tiny-url.address}")
     private String address;
 
-    public TinyUrlService(UniqueSeqService uniqueSeqService) {
+    public TinyUrlService(UrlMappingService urlMappingService, UniqueSeqService uniqueSeqService) {
+        this.urlMappingService = urlMappingService;
         this.uniqueSeqService = uniqueSeqService;
 
     }
@@ -42,7 +46,15 @@ public class TinyUrlService {
         // 校验url合法性
         checkUrl(originUrl);
         String originUrlMd5 = DigestUtils.md5DigestAsHex(originUrl.getBytes());
-        String seqEncode = uniqueSeqService.generateSeqEncode(originUrl, originUrlMd5);
+
+        String seqEncode = urlMappingService.querySeqEncode(originUrlMd5);
+        if (seqEncode != null) {
+            log.info("既有seqEncode：" + seqEncode);
+            return seqEncode;
+        } else {
+            seqEncode = uniqueSeqService.generateSeqEncode(originUrl, originUrlMd5);
+        }
+
         return address + PROXY_PATH + "/" + seqEncode;
     }
 
