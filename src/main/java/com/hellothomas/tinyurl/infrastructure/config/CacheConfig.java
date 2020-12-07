@@ -6,7 +6,10 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
+import com.hellothomas.tinyurl.infrastructure.exception.IgnoreExceptionCacheErrorHandler;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CachingConfigurerSupport;
+import org.springframework.cache.interceptor.CacheErrorHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
@@ -17,8 +20,6 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-import java.time.Duration;
-
 /**
  * @className CacheConfig
  * @author Thomas
@@ -27,7 +28,7 @@ import java.time.Duration;
  * @version 1.0
  */
 @Configuration
-public class CacheConfig {
+public class CacheConfig extends CachingConfigurerSupport {
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         // 使用jackson2JsonRedisSerializer来序列化反序列化redis的值、默认使用的是jdk序列化方式
@@ -48,8 +49,7 @@ public class CacheConfig {
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
 
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig();
-        redisCacheConfiguration = redisCacheConfiguration.entryTtl(Duration.ofMinutes(30L))
-                .disableCachingNullValues()
+        redisCacheConfiguration = redisCacheConfiguration.disableCachingNullValues()
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(stringRedisSerializer))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer));
 
@@ -57,5 +57,10 @@ public class CacheConfig {
                 .builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
                 .cacheDefaults(redisCacheConfiguration)
                 .build();
+    }
+
+    @Override
+    public CacheErrorHandler errorHandler() {
+        return new IgnoreExceptionCacheErrorHandler();
     }
 }
