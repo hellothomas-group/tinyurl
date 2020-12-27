@@ -10,7 +10,6 @@ import com.hellothomas.tinyurl.infrastructure.exception.IgnoreExceptionCacheErro
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.interceptor.CacheErrorHandler;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
@@ -29,8 +28,14 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 @Configuration
 public class CacheConfig extends CachingConfigurerSupport {
-    @Bean
-    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+    private final RedisConnectionFactory redisConnectionFactory;
+
+    public CacheConfig(RedisConnectionFactory redisConnectionFactory) {
+        this.redisConnectionFactory = redisConnectionFactory;
+    }
+
+    @Override
+    public CacheManager cacheManager() {
         // 使用jackson2JsonRedisSerializer来序列化反序列化redis的值、默认使用的是jdk序列化方式
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
         ObjectMapper om = new ObjectMapper();
