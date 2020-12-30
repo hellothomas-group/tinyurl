@@ -41,6 +41,11 @@ public class UrlMapping implements Serializable {
     private String tinyUrl;
 
     /**
+     * 用户id
+     */
+    private String userId;
+
+    /**
      * 短链接类型生成类型,系统: “system”,自定义: “custom” 0为system,1为custom 缺省为0
      */
     private Integer urlType;
@@ -54,4 +59,9 @@ public class UrlMapping implements Serializable {
      * 最后更新时间
      */
     private Date updateTime;
+
+    /**
+     * 过期时间
+     */
+    private Date expireTime;
 }
