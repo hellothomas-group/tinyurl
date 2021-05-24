@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
 /**
- * @ClassName MainApplication
+ * @ClassName Application
  * @Author 80234613
  * @Date 2019-7-7 13:40
  * @Descripton
@@ -15,8 +15,8 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableCaching
 @SpringBootApplication
 @MapperScan(basePackages = {"com.hellothomas.tinyurl.infrastructure.mapper"})
-public class MainApplication {
+public class Application {
     public static void main(String[] args) {
-        SpringApplication.run(MainApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 }

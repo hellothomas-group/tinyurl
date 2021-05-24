@@ -1,7 +1,11 @@
 package com.hellothomas.tinyurl.common.utils;
 
+import com.hellothomas.tinyurl.infrastructure.exception.MyException;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import static com.hellothomas.tinyurl.common.enums.ErrorCodeEnum.URL_FORMAT_ERROR;
 
 /**
  * @ClassName UrlUtil
@@ -11,6 +15,8 @@ import java.net.URL;
  * @Version 1.0
  */
 public class UrlUtil {
+
+    private static final String URL_CMBLIFE_PREFIX = "cmblife://";
 
     private UrlUtil() {
         throw new IllegalStateException("Utility class");
@@ -24,7 +30,7 @@ public class UrlUtil {
      * @Return java.net.URL
      */
     public static URL parse(String urlStr) {
-        URL url = null;
+        URL url;
         try {
             url = new URL(urlStr);
         } catch (MalformedURLException e) {
@@ -34,5 +40,16 @@ public class UrlUtil {
             return null;
         }
         return url;
+    }
+
+    public static void checkUrl(String urlStr) {
+        // cmb app协议
+        if (urlStr.startsWith(URL_CMBLIFE_PREFIX)) {
+            return;
+        }
+        URL tinyURL = UrlUtil.parse(urlStr);
+        if (tinyURL == null) {
+            throw new MyException(URL_FORMAT_ERROR);
+        }
     }
 }

@@ -4,8 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+
 /**
- * @ClassName CreateParams
+ * @ClassName TinyUrlCreateRequest
  * @Author 80234613
  * @Date 2019-7-8 20:57
  * @Descripton
@@ -14,7 +16,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CreateParams {
+public class ApiRequestCreate {
 
     private String originUrl;
+
+    private LocalDateTime expirationTime;
 }

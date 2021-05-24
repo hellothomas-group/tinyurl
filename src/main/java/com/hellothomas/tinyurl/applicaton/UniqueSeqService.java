@@ -1,7 +1,9 @@
 package com.hellothomas.tinyurl.applicaton;
 
+import com.hellothomas.tinyurl.common.utils.DecimalConvertUtil;
 import com.hellothomas.tinyurl.common.utils.SleepUtil;
 import com.hellothomas.tinyurl.domain.UrlSequence;
+import com.hellothomas.tinyurl.domain.vo.UrlMappingResult;
 import com.hellothomas.tinyurl.infrastructure.exception.MyException;
 import com.hellothomas.tinyurl.infrastructure.mapper.UrlSequenceMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -12,11 +14,11 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 
-import static com.hellothomas.tinyurl.common.constants.Constants.DEFAULT_HOST_ADDRESS;
-import static com.hellothomas.tinyurl.common.constants.Constants.DEFAULT_HOST_NAME;
+import static com.hellothomas.tinyurl.common.constants.Constants.*;
 import static com.hellothomas.tinyurl.common.enums.ErrorCodeEnum.*;
 
 /**
@@ -29,13 +31,12 @@ import static com.hellothomas.tinyurl.common.enums.ErrorCodeEnum.*;
 @Slf4j
 @Service
 public class UniqueSeqService {
-    private static final int GENERATE_REPEAT_COUNT = 5;
+    private static final int GENERATE_REPEAT_COUNT = 3;
     private static final int REFRESH_REPEAT_COUNT = 10;
     private static final int GENERATE_WAIT_MS = 500;
     private static final int REFRESH_WAIT_MAX_MS = 500;
 
     private final UrlMappingService urlMappingService;
-    private final DecimalConvertService decimalConvertService;
     private final UrlSequenceMapper urlSequenceMapper;
 
     @Value("${tiny-url.seq.increment-step}")
@@ -46,34 +47,47 @@ public class UniqueSeqService {
     private String hostAddress;
     private Random random;
 
-    public UniqueSeqService(UrlMappingService urlMappingService, DecimalConvertService decimalConvertService,
-                            UrlSequenceMapper urlSequenceMapper) {
+    public UniqueSeqService(UrlMappingService urlMappingService, UrlSequenceMapper urlSequenceMapper) {
         this.urlMappingService = urlMappingService;
-        this.decimalConvertService = decimalConvertService;
         this.urlSequenceMapper = urlSequenceMapper;
         this.atomicCount = new AtomicLong();
         this.random = new Random();
     }
 
     /**
-     * @Author 80234613
-     * @Date 2019-7-7 12:19
-     * @Descripton 为OriginURL生成全局唯一序号
+     * 为OriginURL生成全局唯一序号
+     *
+     * @author 80234613 唐圆
+     * @date 2021/1/4
+     * @param originUrlStr
      * @param originUrlMd5
-     * @Return java.lang.String
+     * @param userId
+     * @param expirationTime
+     * @return com.hellothomas.tinyurl.domain.vo.UrlMappingResult
+     * @throws
      */
-    @CachePut(cacheNames = "OriginUrlMd5", key = "#originUrlMd5", unless = "#result == null")
-    public String generateSeqEncode(String originUrlStr, String originUrlMd5) {
+    @CachePut(cacheNames = ORIGIN_URL_MD5_CACHE_NAME, key = "#originUrlMd5", unless = "#result == null")
+    public UrlMappingResult generateUrlMappingResult(String originUrlStr, String originUrlMd5, String userId,
+                                                     LocalDateTime expirationTime) {
         long seq = generateSeq();
         log.info("新生成seq：" + seq);
 
-        String seqEncode = decimalConvertService.numberConvertToDecimal(seq, 62);
+        String seqEncode = DecimalConvertUtil.numberConvertToDecimal(seq, 62);
 
-        urlMappingService.saveUrlMapping(originUrlStr, originUrlMd5, seq, seqEncode);
+        // 默认过期时间为一年
+        if (expirationTime == null) {
+            expirationTime = LocalDateTime.now().plusYears(1);
+        }
 
-        return seqEncode;
+        urlMappingService.saveUrlMapping(originUrlStr, originUrlMd5, seq, seqEncode, userId, expirationTime);
+
+        return UrlMappingResult.builder()
+                .originUrl(originUrlStr)
+                .seqEncode(seqEncode)
+                .userId(userId)
+                .expireTime(expirationTime)
+                .build();
     }
-
 
     private long generateSeq() {
         int generateCount = 1;
@@ -144,12 +158,15 @@ public class UniqueSeqService {
                     newStartSeq = maxIdUrlSequence.getEndSeq() + 1;
                 }
 
+                LocalDateTime currentDateTime = LocalDateTime.now();
                 UrlSequence urlSequence = UrlSequence.builder()
                         .id(newId)
                         .hostName(hostName)
                         .hostIp(hostAddress)
                         .startSeq(newStartSeq)
                         .endSeq(newStartSeq + seqIncrementStep - 1)
+                        .createTime(currentDateTime)
+                        .updateTime(currentDateTime)
                         .build();
 
                 urlSequenceMapper.insert(urlSequence);

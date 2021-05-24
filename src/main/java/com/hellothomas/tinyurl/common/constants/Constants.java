@@ -11,8 +11,8 @@ public class Constants {
 
     public static final String EMPTY_STRING = "";
     public static final String PROXY_PATH = "/p";
-    public static final String ORIGIN_URL_MD5_KEY_PREFIX = "OriginUrlMd5.";
-    public static final String ID_ENCODE_PREFIX = "IdEncode.";
+    public static final String ORIGIN_URL_MD5_CACHE_NAME = "TinyUrl.OriginUrlMd5";
+    public static final String ID_ENCODE_CACHE_NAME = "TinyUrl.IdEncode.";
     public static final String DEFAULT_HOST_NAME = "UNKNOWN";
     public static final String DEFAULT_HOST_ADDRESS = "UNKNOWN";
 

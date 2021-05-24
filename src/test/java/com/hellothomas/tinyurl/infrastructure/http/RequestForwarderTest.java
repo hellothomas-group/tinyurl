@@ -1,17 +1,15 @@
 package com.hellothomas.tinyurl.infrastructure.http;
 
 import com.hellothomas.tinyurl.infrastructure.exception.MyException;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.net.URI;
 
-import static com.hellothomas.tinyurl.common.enums.ErrorCodeEnum.RESPONSE_PROCESS_ERROR;
+import static com.hellothomas.tinyurl.common.enums.ErrorCodeEnum.URL_NOT_EXIST;
 
 @RunWith(JUnit4.class)
-@Slf4j
 public class RequestForwarderTest {
 
     @Test
@@ -26,10 +24,10 @@ public class RequestForwarderTest {
     @Test
     public void testMyException() {
         Exception e = new RuntimeException("123456");
-        MyException myException = new MyException(RESPONSE_PROCESS_ERROR, e);
+        MyException myException = new MyException(URL_NOT_EXIST, e);
         System.out.println(myException.getCode());
         System.out.println(myException.getMessage());
-        log.error(myException.getMessage());
+        System.out.println(myException.getMessage());
     }
 
     @Test

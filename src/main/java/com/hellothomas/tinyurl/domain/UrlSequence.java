@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -44,10 +45,10 @@ public class UrlSequence implements Serializable {
     /**
      * 生成时间
      */
-    private Date createTime;
+    private LocalDateTime createTime;
 
     /**
      * 最后更新时间
      */
-    private Date updateTime;
+    private LocalDateTime updateTime;
 }
