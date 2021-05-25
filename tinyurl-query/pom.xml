@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>tinyurl</artifactId>
-        <groupId>com.hellothomas</groupId>
+        <groupId>xyz.hellothomas</groupId>
         <version>1.1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -12,6 +12,12 @@
     <artifactId>tinyurl-query</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>xyz.hellothomas</groupId>
+            <artifactId>tinyurl-common</artifactId>
+            <version>${tinyurl.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -21,6 +27,21 @@
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
