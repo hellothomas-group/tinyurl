@@ -1,13 +1,11 @@
-package xyz.hellothomas.tinyurl.generator.infrastructure.mapper;
+package xyz.hellothomas.tinyurl.common.infrastructure.mapper;
 
-import xyz.hellothomas.tinyurl.generator.domain.UrlMapping;
-import xyz.hellothomas.tinyurl.generator.domain.UrlMappingExample;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
+import xyz.hellothomas.tinyurl.common.domain.UrlMapping;
+import xyz.hellothomas.tinyurl.common.domain.UrlMappingExample;
 
 import java.util.List;
 
-@Component
 public interface UrlMappingMapper {
     long countByExample(UrlMappingExample example);
 

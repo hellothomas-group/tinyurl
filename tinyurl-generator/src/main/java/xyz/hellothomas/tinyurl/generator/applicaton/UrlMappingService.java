@@ -1,19 +1,19 @@
 package xyz.hellothomas.tinyurl.generator.applicaton;
 
-import xyz.hellothomas.tinyurl.generator.common.enums.UrlTypeEnum;
-import xyz.hellothomas.tinyurl.generator.domain.UrlMapping;
-import xyz.hellothomas.tinyurl.generator.domain.UrlMappingExample;
-import xyz.hellothomas.tinyurl.generator.domain.vo.UrlMappingResult;
-import xyz.hellothomas.tinyurl.generator.infrastructure.mapper.UrlMappingMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import xyz.hellothomas.tinyurl.common.common.constants.Constants;
+import xyz.hellothomas.tinyurl.common.domain.UrlMapping;
+import xyz.hellothomas.tinyurl.common.domain.UrlMappingExample;
+import xyz.hellothomas.tinyurl.common.infrastructure.mapper.UrlMappingMapper;
+import xyz.hellothomas.tinyurl.generator.common.enums.UrlTypeEnum;
+import xyz.hellothomas.tinyurl.generator.domain.vo.UrlMappingResult;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static xyz.hellothomas.tinyurl.generator.common.constants.Constants.ID_ENCODE_CACHE_NAME;
 import static xyz.hellothomas.tinyurl.generator.common.constants.Constants.ORIGIN_URL_MD5_CACHE_NAME;
 
 /**
@@ -32,6 +32,9 @@ public class UrlMappingService {
         this.urlMappingMapper = urlMappingMapper;
     }
 
+    /**
+     * 使用 @Cacheable 注解时，默认为redisCache
+     */
     @Cacheable(cacheNames = ORIGIN_URL_MD5_CACHE_NAME, key = "#originUrlMd5",
             unless = "#result == null")
     public String querySeqEncode(String originUrlMd5) {
@@ -68,7 +71,7 @@ public class UrlMappingService {
         return result;
     }
 
-    @Cacheable(cacheNames = ID_ENCODE_CACHE_NAME, key = "#seqEncode", unless = "#result == null")
+    @Cacheable(cacheNames = Constants.ID_ENCODE_CACHE_NAME, key = "#seqEncode", unless = "#result == null")
     public String queryOriginUrl(String seqEncode) {
         String originUrl = null;
         UrlMappingExample urlMappingExample = new UrlMappingExample();
@@ -82,7 +85,7 @@ public class UrlMappingService {
         return originUrl;
     }
 
-    @CachePut(cacheNames = ID_ENCODE_CACHE_NAME, key = "#seqEncode", unless = "#result == null")
+    @CachePut(cacheNames = Constants.ID_ENCODE_CACHE_NAME, key = "#seqEncode", unless = "#result == null")
     public String saveUrlMapping(String originUrlStr, String originUrlMd5, long seq, String seqEncode, String userId,
                                  LocalDateTime expirationTime) {
         insertRecord(seq, originUrlStr, seqEncode, originUrlMd5, userId, expirationTime, UrlTypeEnum.SYSTEM);

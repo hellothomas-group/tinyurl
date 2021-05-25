@@ -1,4 +1,4 @@
-package xyz.hellothomas.tinyurl.generator.domain;
+package xyz.hellothomas.tinyurl.common.domain;
 
 import lombok.Builder;
 import lombok.Getter;

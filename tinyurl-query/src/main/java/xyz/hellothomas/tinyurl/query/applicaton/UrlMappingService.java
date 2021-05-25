@@ -1,15 +1,14 @@
 package xyz.hellothomas.tinyurl.query.applicaton;
 
-import xyz.hellothomas.tinyurl.query.domain.UrlMapping;
-import xyz.hellothomas.tinyurl.query.domain.UrlMappingExample;
-import xyz.hellothomas.tinyurl.query.infrastructure.mapper.UrlMappingMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import xyz.hellothomas.tinyurl.common.common.constants.Constants;
+import xyz.hellothomas.tinyurl.common.domain.UrlMapping;
+import xyz.hellothomas.tinyurl.common.domain.UrlMappingExample;
+import xyz.hellothomas.tinyurl.common.infrastructure.mapper.UrlMappingMapper;
 
 import java.util.List;
-
-import static xyz.hellothomas.tinyurl.query.common.constants.Constants.ID_ENCODE_CACHE_NAME;
 
 /**
  * @className UrlMappingService
@@ -27,7 +26,7 @@ public class UrlMappingService {
         this.urlMappingMapper = urlMappingMapper;
     }
 
-    @Cacheable(cacheNames = ID_ENCODE_CACHE_NAME, key = "#seqEncode", unless = "#result == null")
+    @Cacheable(cacheNames = Constants.ID_ENCODE_CACHE_NAME, key = "#seqEncode", unless = "#result == null")
     public String queryOriginUrl(String seqEncode) {
         String originUrl = null;
         UrlMappingExample urlMappingExample = new UrlMappingExample();

@@ -1,4 +1,4 @@
-package xyz.hellothomas.tinyurl.generator.infrastructure.exception;
+package xyz.hellothomas.tinyurl.common.infrastructure.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.Cache;

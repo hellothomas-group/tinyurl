@@ -1,15 +1,15 @@
 package xyz.hellothomas.tinyurl.generator.applicaton;
 
-import xyz.hellothomas.tinyurl.generator.api.dto.TinyUrlCreateResponse;
-import xyz.hellothomas.tinyurl.generator.common.utils.UrlUtil;
-import xyz.hellothomas.tinyurl.generator.domain.vo.UrlMappingResult;
-import xyz.hellothomas.tinyurl.generator.common.enums.ErrorCodeEnum;
-import xyz.hellothomas.tinyurl.generator.infrastructure.exception.MyException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import xyz.hellothomas.tinyurl.common.infrastructure.exception.MyException;
+import xyz.hellothomas.tinyurl.generator.api.dto.TinyUrlCreateResponse;
+import xyz.hellothomas.tinyurl.generator.common.enums.GeneratorErrorCodeEnum;
+import xyz.hellothomas.tinyurl.generator.common.utils.UrlUtil;
+import xyz.hellothomas.tinyurl.generator.domain.vo.UrlMappingResult;
 
 import java.time.LocalDateTime;
 import java.util.regex.Pattern;
@@ -75,7 +75,7 @@ public class TinyUrlService {
      */
     public String getOriginUrl(String tinyUrlStr) {
         if (!tinyUrlStr.startsWith(address)) {
-            throw new MyException(ErrorCodeEnum.URL_ADDRESS_INVALID);
+            throw new MyException(GeneratorErrorCodeEnum.URL_ADDRESS_INVALID);
         }
         String seqEncode = StringUtils.removeStartIgnoreCase(tinyUrlStr, address + "/");
         checkSeqEncode(seqEncode);
@@ -84,7 +84,7 @@ public class TinyUrlService {
 
     private void checkSeqEncode(String seqEncode) {
         if (!Pattern.matches(SEQ_ENCODE_PATTERN, seqEncode)) {
-            throw new MyException(ErrorCodeEnum.URL_PATH_INVALID);
+            throw new MyException(GeneratorErrorCodeEnum.URL_PATH_INVALID);
         }
     }
 }

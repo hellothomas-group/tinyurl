@@ -1,4 +1,4 @@
-package xyz.hellothomas.tinyurl.generator.domain;
+package xyz.hellothomas.tinyurl.common.domain;
 
 import java.util.ArrayList;
 import java.util.Date;

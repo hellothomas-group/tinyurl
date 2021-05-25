@@ -13,8 +13,8 @@ import org.springframework.cache.annotation.EnableCaching;
  * @Version 1.0
  */
 @EnableCaching
-@SpringBootApplication
-@MapperScan(basePackages = {"xyz.hellothomas.tinyurl.generator.infrastructure.mapper"})
+@SpringBootApplication(scanBasePackages = "xyz.hellothomas.tinyurl.*")
+@MapperScan(basePackages = {"xyz.hellothomas.tinyurl.*.infrastructure.mapper"})
 public class GeneratorApplication {
     public static void main(String[] args) {
         SpringApplication.run(GeneratorApplication.class, args);

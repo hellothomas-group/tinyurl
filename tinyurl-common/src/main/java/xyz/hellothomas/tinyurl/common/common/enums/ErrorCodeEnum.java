@@ -1,8 +1,25 @@
-package xyz.hellothomas.tinyurl.query.common.enums;
+package xyz.hellothomas.tinyurl.common.common.enums;
 
 public enum ErrorCodeEnum implements ICodeEnum {
-    URL_NOT_EXIST("CODE001", "URL不存在"),
-    URL_PATH_INVALID("CODE002", "URL路径不合法"),
+    /**
+     * 操作成功
+     */
+    SUCCESS("SUC0000", "操作成功"),
+
+    /**
+     * 操作失败
+     */
+    FAIL("CODE001", "操作失败"),
+
+    /**
+     * 系统异常
+     */
+    SYSTEM_ERROR("CODE002", "系统异常"),
+
+    /**
+     * 参数异常
+     */
+    PARAM_ERROR("CODE003", "参数异常"),
     ;
 
     private String code;

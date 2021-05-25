@@ -1,9 +1,9 @@
-package xyz.hellothomas.tinyurl.query.infrastructure.exception;
+package xyz.hellothomas.tinyurl.common.infrastructure.exception;
 
-import xyz.hellothomas.tinyurl.query.common.enums.ICodeEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import xyz.hellothomas.tinyurl.common.common.enums.ICodeEnum;
 
 import java.text.MessageFormat;
 

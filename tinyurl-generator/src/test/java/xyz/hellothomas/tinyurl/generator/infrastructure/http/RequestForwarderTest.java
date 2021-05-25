@@ -1,13 +1,13 @@
 package xyz.hellothomas.tinyurl.generator.infrastructure.http;
 
-import xyz.hellothomas.tinyurl.generator.infrastructure.exception.MyException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import xyz.hellothomas.tinyurl.common.infrastructure.exception.MyException;
 
 import java.net.URI;
 
-import static xyz.hellothomas.tinyurl.generator.common.enums.ErrorCodeEnum.URL_NOT_EXIST;
+import static xyz.hellothomas.tinyurl.generator.common.enums.GeneratorErrorCodeEnum.URL_NOT_EXIST;
 
 @RunWith(JUnit4.class)
 public class RequestForwarderTest {

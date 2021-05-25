@@ -1,8 +1,5 @@
 package xyz.hellothomas.tinyurl.generator.applicaton.handler;
 
-import xyz.hellothomas.tinyurl.generator.api.dto.ApiResponse;
-import xyz.hellothomas.tinyurl.generator.common.enums.ErrorCodeEnum;
-import xyz.hellothomas.tinyurl.generator.infrastructure.exception.MyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
@@ -10,6 +7,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import xyz.hellothomas.tinyurl.common.common.enums.ErrorCodeEnum;
+import xyz.hellothomas.tinyurl.common.dto.ApiResponse;
+import xyz.hellothomas.tinyurl.common.infrastructure.exception.MyException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;

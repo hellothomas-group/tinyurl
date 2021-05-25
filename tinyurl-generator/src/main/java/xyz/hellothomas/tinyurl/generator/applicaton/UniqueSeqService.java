@@ -1,16 +1,16 @@
 package xyz.hellothomas.tinyurl.generator.applicaton;
 
-import xyz.hellothomas.tinyurl.generator.common.utils.DecimalConvertUtil;
-import xyz.hellothomas.tinyurl.generator.common.utils.SleepUtil;
-import xyz.hellothomas.tinyurl.generator.domain.UrlSequence;
-import xyz.hellothomas.tinyurl.generator.domain.vo.UrlMappingResult;
-import xyz.hellothomas.tinyurl.generator.common.enums.ErrorCodeEnum;
-import xyz.hellothomas.tinyurl.generator.infrastructure.exception.MyException;
-import xyz.hellothomas.tinyurl.generator.infrastructure.mapper.UrlSequenceMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
+import xyz.hellothomas.tinyurl.common.infrastructure.exception.MyException;
+import xyz.hellothomas.tinyurl.generator.common.enums.GeneratorErrorCodeEnum;
+import xyz.hellothomas.tinyurl.generator.common.utils.DecimalConvertUtil;
+import xyz.hellothomas.tinyurl.generator.common.utils.SleepUtil;
+import xyz.hellothomas.tinyurl.generator.domain.UrlSequence;
+import xyz.hellothomas.tinyurl.generator.domain.vo.UrlMappingResult;
+import xyz.hellothomas.tinyurl.generator.infrastructure.mapper.UrlSequenceMapper;
 
 import javax.annotation.PostConstruct;
 import java.net.InetAddress;
@@ -107,8 +107,8 @@ public class UniqueSeqService {
             generateCount++;
         }
 
-        log.error(ErrorCodeEnum.GENERATE_SEQ_ERROR.getMessage());
-        throw new MyException(ErrorCodeEnum.GENERATE_SEQ_ERROR);
+        log.error(GeneratorErrorCodeEnum.GENERATE_SEQ_ERROR.getMessage());
+        throw new MyException(GeneratorErrorCodeEnum.GENERATE_SEQ_ERROR);
     }
 
     /**
@@ -121,7 +121,7 @@ public class UniqueSeqService {
     public String seqEncodeConvertToOriginUrl(String seqEncode) {
         String originUrl = urlMappingService.queryOriginUrl(seqEncode);
         if (originUrl == null) {
-            throw new MyException(ErrorCodeEnum.URL_NOT_EXIST);
+            throw new MyException(GeneratorErrorCodeEnum.URL_NOT_EXIST);
         }
         return originUrl;
     }
@@ -133,12 +133,12 @@ public class UniqueSeqService {
             hostName = localhost == null ? DEFAULT_HOST_NAME : localhost.getHostName();
             hostAddress = localhost == null ? DEFAULT_HOST_ADDRESS : localhost.getHostAddress();
         } catch (UnknownHostException e) {
-            log.warn(ErrorCodeEnum.GET_LOCAL_HOST_ERROR.getMessage(), e);
+            log.warn(GeneratorErrorCodeEnum.GET_LOCAL_HOST_ERROR.getMessage(), e);
         }
         boolean refreshResult = refreshUrlSeqRange();
         if (!refreshResult) {
-            log.error(ErrorCodeEnum.REFRESH_EXIT_ERROR.getMessage());
-            throw new MyException(ErrorCodeEnum.REFRESH_EXIT_ERROR);
+            log.error(GeneratorErrorCodeEnum.REFRESH_EXIT_ERROR.getMessage());
+            throw new MyException(GeneratorErrorCodeEnum.REFRESH_EXIT_ERROR);
         }
     }
 

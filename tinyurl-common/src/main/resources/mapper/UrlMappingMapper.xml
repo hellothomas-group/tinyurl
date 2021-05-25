@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="xyz.hellothomas.tinyurl.query.infrastructure.mapper.UrlMappingMapper">
-    <resultMap id="BaseResultMap" type="xyz.hellothomas.tinyurl.query.domain.UrlMapping">
+<mapper namespace="xyz.hellothomas.tinyurl.common.infrastructure.mapper.UrlMappingMapper">
+    <resultMap id="BaseResultMap" type="xyz.hellothomas.tinyurl.common.domain.UrlMapping">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="origin_url" jdbcType="VARCHAR" property="originUrl"/>
         <result column="origin_url_md5" jdbcType="VARCHAR" property="originUrlMd5"/>
@@ -76,7 +76,7 @@
     id, origin_url, origin_url_md5, tiny_url, user_id, url_type, create_time, update_time,
     expire_time
   </sql>
-    <select id="selectByExample" parameterType="xyz.hellothomas.tinyurl.query.domain.UrlMappingExample"
+    <select id="selectByExample" parameterType="xyz.hellothomas.tinyurl.common.domain.UrlMappingExample"
             resultMap="BaseResultMap">
         select
         <if test="distinct">
@@ -101,13 +101,13 @@
     delete from url_mapping
     where id = #{id,jdbcType=BIGINT}
   </delete>
-    <delete id="deleteByExample" parameterType="xyz.hellothomas.tinyurl.query.domain.UrlMappingExample">
+    <delete id="deleteByExample" parameterType="xyz.hellothomas.tinyurl.common.domain.UrlMappingExample">
         delete from url_mapping
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" parameterType="xyz.hellothomas.tinyurl.query.domain.UrlMapping">
+    <insert id="insert" parameterType="xyz.hellothomas.tinyurl.common.domain.UrlMapping">
     insert into url_mapping (id, origin_url, origin_url_md5,
       tiny_url, user_id, url_type,
       create_time, update_time, expire_time
@@ -117,7 +117,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{expireTime,jdbcType=TIMESTAMP}
       )
   </insert>
-    <insert id="insertSelective" parameterType="xyz.hellothomas.tinyurl.query.domain.UrlMapping">
+    <insert id="insertSelective" parameterType="xyz.hellothomas.tinyurl.common.domain.UrlMapping">
         insert into url_mapping
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -178,7 +178,7 @@
             </if>
         </trim>
     </insert>
-    <select id="countByExample" parameterType="xyz.hellothomas.tinyurl.query.domain.UrlMappingExample"
+    <select id="countByExample" parameterType="xyz.hellothomas.tinyurl.common.domain.UrlMappingExample"
             resultType="java.lang.Long">
         select count(*) from url_mapping
         <if test="_parameter != null">
@@ -235,7 +235,7 @@
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="xyz.hellothomas.tinyurl.query.domain.UrlMapping">
+    <update id="updateByPrimaryKeySelective" parameterType="xyz.hellothomas.tinyurl.common.domain.UrlMapping">
         update url_mapping
         <set>
             <if test="originUrl != null">
@@ -265,7 +265,7 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="xyz.hellothomas.tinyurl.query.domain.UrlMapping">
+    <update id="updateByPrimaryKey" parameterType="xyz.hellothomas.tinyurl.common.domain.UrlMapping">
     update url_mapping
     set origin_url = #{originUrl,jdbcType=VARCHAR},
       origin_url_md5 = #{originUrlMd5,jdbcType=VARCHAR},

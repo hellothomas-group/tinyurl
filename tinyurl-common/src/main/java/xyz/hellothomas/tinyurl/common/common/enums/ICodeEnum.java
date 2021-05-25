@@ -1,4 +1,4 @@
-package xyz.hellothomas.tinyurl.generator.common.enums;
+package xyz.hellothomas.tinyurl.common.common.enums;
 
 /**
  * @ClassName ICodeEnum

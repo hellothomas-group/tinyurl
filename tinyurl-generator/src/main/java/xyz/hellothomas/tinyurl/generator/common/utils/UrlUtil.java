@@ -1,11 +1,11 @@
 package xyz.hellothomas.tinyurl.generator.common.utils;
 
-import xyz.hellothomas.tinyurl.generator.infrastructure.exception.MyException;
+import xyz.hellothomas.tinyurl.common.infrastructure.exception.MyException;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static xyz.hellothomas.tinyurl.generator.common.enums.ErrorCodeEnum.URL_FORMAT_ERROR;
+import static xyz.hellothomas.tinyurl.generator.common.enums.GeneratorErrorCodeEnum.URL_FORMAT_ERROR;
 
 /**
  * @ClassName UrlUtil

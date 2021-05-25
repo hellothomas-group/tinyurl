@@ -1,6 +1,6 @@
 package xyz.hellothomas.tinyurl.generator.api;
 
-import xyz.hellothomas.tinyurl.generator.api.dto.ApiResponse;
+import xyz.hellothomas.tinyurl.common.dto.ApiResponse;
 import xyz.hellothomas.tinyurl.generator.api.dto.TinyUrlCreateRequest;
 import xyz.hellothomas.tinyurl.generator.api.dto.TinyUrlCreateResponse;
 import xyz.hellothomas.tinyurl.generator.api.dto.TinyUrlGetResponse;

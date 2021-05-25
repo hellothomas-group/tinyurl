@@ -1,12 +1,12 @@
 package xyz.hellothomas.tinyurl.query.api;
 
-import xyz.hellothomas.tinyurl.query.applicaton.UniqueSeqService;
-import xyz.hellothomas.tinyurl.query.common.enums.ErrorCodeEnum;
-import xyz.hellothomas.tinyurl.query.infrastructure.exception.MyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import xyz.hellothomas.tinyurl.common.infrastructure.exception.MyException;
+import xyz.hellothomas.tinyurl.query.applicaton.UniqueSeqService;
+import xyz.hellothomas.tinyurl.query.common.enums.QueryErrorCodeEnum;
 
 import java.util.regex.Pattern;
 
@@ -33,14 +33,14 @@ public class RedirectController {
         checkInput(seqEncode);
         String originUrl = uniqueSeqService.seqEncodeConvertToOriginUrl(seqEncode);
         if (originUrl == null) {
-            throw new MyException(ErrorCodeEnum.URL_NOT_EXIST);
+            throw new MyException(QueryErrorCodeEnum.URL_NOT_EXIST);
         }
         return "redirect:" + originUrl;
     }
 
     private void checkInput(String seqEncode) {
         if (!Pattern.matches(SEQ_ENCODE_PATTERN, seqEncode)) {
-            throw new MyException(ErrorCodeEnum.URL_PATH_INVALID);
+            throw new MyException(QueryErrorCodeEnum.URL_PATH_INVALID);
         }
     }
 }
