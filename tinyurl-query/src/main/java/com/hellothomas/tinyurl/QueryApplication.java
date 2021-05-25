@@ -15,8 +15,8 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableCaching
 @SpringBootApplication
 @MapperScan(basePackages = {"com.hellothomas.tinyurl.infrastructure.mapper"})
-public class Application {
+public class QueryApplication {
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(QueryApplication.class, args);
     }
 }
