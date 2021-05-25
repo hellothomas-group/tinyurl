@@ -31,7 +31,7 @@ public class UniqueSeqService {
      * @Return java.lang.String
      */
     @Cacheable(cacheNames = CAFFEINE_NULL_CACHE_NAME, cacheManager = "caffeineCacheManager",
-            condition = "#result == null")
+            unless = "#result != null")
     public String seqEncodeConvertToOriginUrl(String seqEncode) {
         log.info("seqEncode: {}", seqEncode);
         String originUrl = urlMappingService.queryOriginUrl(seqEncode);
