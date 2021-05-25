@@ -1,4 +1,4 @@
-package xyz.hellothomas.tinyurl.generator.infrastructure.config;
+package xyz.hellothomas.tinyurl.common.infrastructure.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -19,17 +19,16 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import xyz.hellothomas.tinyurl.common.infrastructure.exception.IgnoreExceptionCacheErrorHandler;
 
 /**
- * @className CacheConfig
  * @author Thomas
  * @date 2020/11/29 22:49
  * @description
  * @version 1.0
  */
 @Configuration
-public class CacheConfig extends CachingConfigurerSupport {
+public class RedisConfig extends CachingConfigurerSupport {
     private final RedisConnectionFactory redisConnectionFactory;
 
-    public CacheConfig(RedisConnectionFactory redisConnectionFactory) {
+    public RedisConfig(RedisConnectionFactory redisConnectionFactory) {
         this.redisConnectionFactory = redisConnectionFactory;
     }
 
