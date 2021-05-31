@@ -8,8 +8,6 @@ import xyz.hellothomas.tinyurl.common.infrastructure.exception.MyException;
 import xyz.hellothomas.tinyurl.query.applicaton.UniqueSeqService;
 import xyz.hellothomas.tinyurl.query.common.enums.QueryErrorCodeEnum;
 
-import java.util.regex.Pattern;
-
 /**
  * @classname RedirectController
  * @author Thomas
@@ -20,7 +18,6 @@ import java.util.regex.Pattern;
 @Slf4j
 @Controller
 public class RedirectController {
-    private static final String SEQ_ENCODE_PATTERN = "^[[A-Za-z0-9]+]{6}";
 
     private final UniqueSeqService uniqueSeqService;
 
@@ -28,19 +25,12 @@ public class RedirectController {
         this.uniqueSeqService = uniqueSeqService;
     }
 
-    @GetMapping("/{seqEncode}")
+    @GetMapping("/{seqEncode:^[[A-Za-z0-9]+]{6}}")
     public String getOriginUrl(@PathVariable("seqEncode") String seqEncode) {
-        checkInput(seqEncode);
         String originUrl = uniqueSeqService.seqEncodeConvertToOriginUrl(seqEncode);
         if (originUrl == null) {
             throw new MyException(QueryErrorCodeEnum.URL_NOT_EXIST);
         }
         return "redirect:" + originUrl;
-    }
-
-    private void checkInput(String seqEncode) {
-        if (!Pattern.matches(SEQ_ENCODE_PATTERN, seqEncode)) {
-            throw new MyException(QueryErrorCodeEnum.URL_PATH_INVALID);
-        }
     }
 }
