@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    password: 222222
+    url: jdbc:mysql://127.0.0.1:3306/my_tool?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+      &serverTimezone=Asia/Shanghai
+    username: root
+  redis:
+    database: 0
+    jedis:
+      pool:
+        max-wait: 30000ms
+        max-idle: 5
+        max-active: 20
+        min-idle: 5
+        timeout: 2000-5000
+        soTimeout: 2000-5000
+        testOnBorrow: true
+        testWhileIdle: true
+    password:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 1000ms
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+logging:
+  level:
+    com:
+      zaxxer:
+        hikari: debug
+    xyz.hellothomas: debug
+    root: info
+server:
+  port: 8081
+my.caffeine:
+  initial-capacity: 1000
+  maximum-size: 10000
+  expire-after-write: 1800
