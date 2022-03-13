@@ -1,7 +1,7 @@
 spring:
   datasource:
-    password: 222222
-    url: jdbc:mysql://127.0.0.1:3306/my_tool?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/tinyurl?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
       &serverTimezone=Asia/Shanghai
     username: root
   redis:
@@ -12,14 +12,11 @@ spring:
         max-idle: 5
         max-active: 20
         min-idle: 5
-        timeout: 2000-5000
-        soTimeout: 2000-5000
-        testOnBorrow: true
-        testWhileIdle: true
     password:
     host: 127.0.0.1
     port: 6379
-    timeout: 1000ms
+    timeout: 500ms
+    client-name: tinyurl-query
 mybatis:
   mapper-locations: classpath:mapper/*.xml
 logging:

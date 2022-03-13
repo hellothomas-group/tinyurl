@@ -1,7 +1,7 @@
 spring:
   datasource:
-    password: 222222
-    url: jdbc:mysql://127.0.0.1:3306/my_tool?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/tinyurl?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
      &serverTimezone=Asia/Shanghai
     username: root
   redis:
@@ -12,14 +12,11 @@ spring:
         max-idle: 5
         max-active: 20
         min-idle: 5
-        timeout: 2000-5000   #建立连接的超时时间2-5秒
-        soTimeout: 2000-5000 #执行指令的超时时间（如果有这项配置）
-        testOnBorrow: true   #在从连接池取连接时检查有效性
-        testWhileIdle: true  #在空闲时检测连接有效性
     password:
     host: 127.0.0.1
     port: 6379
-    timeout: 1000ms
+    timeout: 500ms
+    client-name: tinyurl-generator
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
 tiny-url:
@@ -33,4 +30,4 @@ logging:
         hikari: debug
     xyz.hellothomas: debug
     root: info
-debug: true
+debug: false

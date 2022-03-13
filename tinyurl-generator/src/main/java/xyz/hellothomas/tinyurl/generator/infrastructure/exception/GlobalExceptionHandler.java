@@ -1,4 +1,4 @@
-package xyz.hellothomas.tinyurl.generator.applicaton.handler;
+package xyz.hellothomas.tinyurl.generator.infrastructure.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -31,7 +31,8 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ApiResponse defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
         log.error("default error handler", e);
-        return ApiResponse.fail(ErrorCodeEnum.SYSTEM_ERROR.getMessage(), ErrorCodeEnum.SYSTEM_ERROR);
+        return ApiResponse.fail(String.format("%s:%s", ErrorCodeEnum.SYSTEM_ERROR.getMessage(), e.getMessage()),
+                ErrorCodeEnum.SYSTEM_ERROR);
     }
 
     @ExceptionHandler(MyException.class)

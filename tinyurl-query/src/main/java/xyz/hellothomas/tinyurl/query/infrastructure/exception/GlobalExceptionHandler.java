@@ -23,7 +23,7 @@ import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
  */
 @Slf4j
 @ControllerAdvice
-public class ExceptionHandlerAdvice {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public ModelAndView defaultErrorHandler(Exception exception, HttpServletRequest request,

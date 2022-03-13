@@ -1,5 +1,5 @@
 
-CREATE database if NOT EXISTS `tinyurl` default character set utf8mb4 collate utf8mb4_unicode_ci;
+CREATE database if NOT EXISTS `tinyurl` default character set utf8mb4 collate utf8mb4_bin;
 use `tinyurl`;
 
 SET NAMES utf8mb4;

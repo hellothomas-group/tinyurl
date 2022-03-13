@@ -27,12 +27,11 @@ public class TinyUrlCreateRequest {
 
     @NotBlank
     @Length(max = 2083)
-    @ApiModelProperty(value = "原始url", required = true, dataType = "string", example = "\"https://oa.cmbchina" +
-            ".com/OAMS/Shell/\"")
+    @ApiModelProperty(value = "原始url", required = true, dataType = "string", example = "\"https://gitee.com/hellothomas\"")
     private String originUrl;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Future
-    @ApiModelProperty(value = "过期时间", dataType = "string", example = "\"2021-01-31 10:22:22\"")
+    @ApiModelProperty(value = "过期时间", dataType = "string", example = "\"2023-01-31 10:22:22\"")
     private LocalDateTime expirationTime;
 }

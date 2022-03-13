@@ -15,7 +15,6 @@
         <dependency>
             <groupId>xyz.hellothomas</groupId>
             <artifactId>tinyurl-common</artifactId>
-            <version>${tinyurl.version}</version>
         </dependency>
 
         <dependency>
