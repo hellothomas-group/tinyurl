@@ -20,15 +20,12 @@ CREATE TABLE `url_mapping` (
   UNIQUE KEY `i_tiny_url` (`tiny_url`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `url_sequence` (
-  `id` bigint(20) NOT NULL COMMENT 'id',
-  `start_seq` bigint(20) NOT NULL comment '起始序号',
-  `end_seq` bigint(20) NOT NULL comment '结束序号',
-  `host_name` varchar(256) NOT NULL comment '主机名',
-  `host_ip` varchar(64) NOT NULL comment '主机IP',
-  `create_time` timestamp default CURRENT_TIMESTAMP NOT NULL comment '生成时间',
-  `update_time` timestamp default CURRENT_TIMESTAMP NOT NULL on update CURRENT_TIMESTAMP comment '最后更新时间',
-
-  PRIMARY KEY (`id`)
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE LEAF_ALLOC (
+  BIZ_TAG VARCHAR(128)  NOT NULL DEFAULT '',
+  MAX_ID BIGINT NOT NULL DEFAULT '1',
+  STEP INT NOT NULL,
+  DESCRIPTION VARCHAR(256) DEFAULT NULL,
+  UPDATE_TIME DATETIME(3) NOT NULL DEFAULT NOW(3),
+  PRIMARY KEY (BIZ_TAG)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='LEAF分配表';
 
