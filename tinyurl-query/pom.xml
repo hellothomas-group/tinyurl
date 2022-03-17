@@ -15,6 +15,16 @@
         <dependency>
             <groupId>xyz.hellothomas</groupId>
             <artifactId>tinyurl-common</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-boot-starter-data-redis</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jedis</artifactId>
+                    <groupId>redis.clients</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -32,6 +42,7 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+
 
         <dependency>
             <groupId>xyz.hellothomas</groupId>

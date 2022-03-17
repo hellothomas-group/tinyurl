@@ -2,7 +2,6 @@ package xyz.hellothomas.tinyurl.generator.applicaton;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import xyz.hellothomas.tinyurl.common.common.constants.Constants;
 import xyz.hellothomas.tinyurl.common.domain.UrlMapping;
@@ -13,8 +12,6 @@ import xyz.hellothomas.tinyurl.generator.domain.vo.UrlMappingResult;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static xyz.hellothomas.tinyurl.generator.common.constants.Constants.ORIGIN_URL_MD5_CACHE_NAME;
 
 /**
  * @className UrlMappingService
@@ -32,26 +29,6 @@ public class UrlMappingService {
         this.urlMappingMapper = urlMappingMapper;
     }
 
-    /**
-     * 使用 @Cacheable 注解时，默认为redisCache
-     */
-    @Cacheable(cacheNames = ORIGIN_URL_MD5_CACHE_NAME, key = "#originUrlMd5",
-            unless = "#result == null")
-    public String querySeqEncode(String originUrlMd5) {
-        String seqEncode = null;
-        UrlMappingExample urlMappingExample = new UrlMappingExample();
-        urlMappingExample.createCriteria().andOriginUrlMd5EqualTo(originUrlMd5);
-        List<UrlMapping> urlMappings = urlMappingMapper.selectByExample(urlMappingExample);
-
-        if (!urlMappings.isEmpty()) {
-            seqEncode = urlMappings.get(0).getTinyUrl();
-        }
-
-        return seqEncode;
-    }
-
-    @Cacheable(cacheNames = ORIGIN_URL_MD5_CACHE_NAME, key = "#originUrlMd5",
-            unless = "#result == null")
     public UrlMappingResult queryUrlMappingResult(String originUrlMd5) {
         UrlMappingResult result = null;
         UrlMappingExample urlMappingExample = new UrlMappingExample();
@@ -71,7 +48,6 @@ public class UrlMappingService {
         return result;
     }
 
-    @Cacheable(cacheNames = Constants.ID_ENCODE_CACHE_NAME, key = "#seqEncode", unless = "#result == null")
     public String queryOriginUrl(String seqEncode) {
         String originUrl = null;
         UrlMappingExample urlMappingExample = new UrlMappingExample();

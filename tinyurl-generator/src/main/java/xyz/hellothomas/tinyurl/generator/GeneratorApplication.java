@@ -3,7 +3,6 @@ package xyz.hellothomas.tinyurl.generator;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
 
 /**
  * @ClassName Application
@@ -12,8 +11,7 @@ import org.springframework.cache.annotation.EnableCaching;
  * @Descripton
  * @Version 1.0
  */
-@EnableCaching
-@SpringBootApplication(scanBasePackages = "xyz.hellothomas.tinyurl.*")
+@SpringBootApplication()
 @MapperScan(basePackages = {"xyz.hellothomas.tinyurl.*.infrastructure.mapper"})
 public class GeneratorApplication {
     public static void main(String[] args) {

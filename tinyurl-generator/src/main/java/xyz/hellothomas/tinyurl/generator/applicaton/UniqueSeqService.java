@@ -4,7 +4,6 @@ import com.sankuai.inf.leaf.IDGen;
 import com.sankuai.inf.leaf.common.Result;
 import com.sankuai.inf.leaf.common.Status;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import xyz.hellothomas.tinyurl.common.infrastructure.exception.MyException;
 import xyz.hellothomas.tinyurl.generator.common.enums.GeneratorErrorCodeEnum;
@@ -12,8 +11,6 @@ import xyz.hellothomas.tinyurl.generator.common.utils.DecimalConvertUtil;
 import xyz.hellothomas.tinyurl.generator.domain.vo.UrlMappingResult;
 
 import java.time.LocalDateTime;
-
-import static xyz.hellothomas.tinyurl.generator.common.constants.Constants.ORIGIN_URL_MD5_CACHE_NAME;
 
 /**
  * @ClassName UniqueSeqService
@@ -46,7 +43,6 @@ public class UniqueSeqService {
      * @return UrlMappingResult
      * @throws
      */
-    @CachePut(cacheNames = ORIGIN_URL_MD5_CACHE_NAME, key = "#originUrlMd5", unless = "#result == null")
     public UrlMappingResult generateUrlMappingResult(String originUrlStr, String originUrlMd5, String userId,
                                                      LocalDateTime expirationTime) {
         long seq = generateSeq();
