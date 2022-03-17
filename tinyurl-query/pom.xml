@@ -15,16 +15,6 @@
         <dependency>
             <groupId>xyz.hellothomas</groupId>
             <artifactId>tinyurl-common</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-boot-starter-data-redis</artifactId>
-                    <groupId>org.springframework.boot</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>jedis</artifactId>
-                    <groupId>redis.clients</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
@@ -41,13 +31,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
-        </dependency>
-
-
-        <dependency>
-            <groupId>xyz.hellothomas</groupId>
-            <artifactId>sftp-client-spring-boot-starter</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
