@@ -1,4 +1,4 @@
-package xyz.hellothomas.tinyurl.generator.common.utils;
+package xyz.hellothomas.tinyurl.common.common.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,27 +6,26 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @ClassName DecimalConvertService
- * @Author 80234613
- * @Date 2019-7-4 13:31
- * @Descripton 进制转换工具
- * @Version 1.0
+ * @author Thomas
+ * @date 2022/3/19 23:48
+ * @description 进制转换工具
+ * @version 1.0
  */
 public class DecimalConvertUtil {
     private static final int DECIMAL_LENGTH = 6;
     private static final String[] DIGIT_ARRAY = new String[]{
             // 最右开始，第一位
-            "LBClqO43AIbTMDy8G1eVZmF0hutRkzXdQ6wNfiKEJaxWHPSg57rj9nosY2vUcp",
+            "c2PLkTFslnwYJOCB6Zfv9oXEajpV4mNDWhuIrqKHt7eb5dQy3MS0RziU8xAgG1",
             // 最右开始，第二位
-            "BClqO43AIbTMDy8G1eVZmF0hutRkzXdQ6wNfiKEJaxWHPSg57rj9nosY2vUcpL",
+            "2PLkTFslnwYJOCB6Zfv9oXEajpV4mNDWhuIrqKHt7eb5dQy3MS0RziU8xAgG1c",
             // 最右开始，第三位
-            "ClqO43AIbTMDy8G1eVZmF0hutRkzXdQ6wNfiKEJaxWHPSg57rj9nosY2vUcpLB",
+            "PLkTFslnwYJOCB6Zfv9oXEajpV4mNDWhuIrqKHt7eb5dQy3MS0RziU8xAgG1c2",
             // 最右开始，第四位
-            "lqO43AIbTMDy8G1eVZmF0hutRkzXdQ6wNfiKEJaxWHPSg57rj9nosY2vUcpLBC",
+            "LkTFslnwYJOCB6Zfv9oXEajpV4mNDWhuIrqKHt7eb5dQy3MS0RziU8xAgG1c2P",
             // 最右开始，第五位
-            "qO43AIbTMDy8G1eVZmF0hutRkzXdQ6wNfiKEJaxWHPSg57rj9nosY2vUcpLBCl",
+            "kTFslnwYJOCB6Zfv9oXEajpV4mNDWhuIrqKHt7eb5dQy3MS0RziU8xAgG1c2PL",
             // 最右开始，第六位
-            "O43AIbTMDy8G1eVZmF0hutRkzXdQ6wNfiKEJaxWHPSg57rj9nosY2vUcpLBClq"};
+            "TFslnwYJOCB6Zfv9oXEajpV4mNDWhuIrqKHt7eb5dQy3MS0RziU8xAgG1c2PLk"};
     /**
      * 各位的编码array(个位.百位...)
      */
@@ -54,14 +53,25 @@ public class DecimalConvertUtil {
     }
 
     /**
-     * @Author 80234613
-     * @Date 2019-7-7 11:26
-     * @Descripton 数字转换为进制字符串，仅支持2到62进制
+     * 数字转换为进制字符串
+     *
      * @param number
      * @param decimal
-     * @Return java.lang.String
+     * @return
      */
     public static String numberConvertToDecimal(long number, int decimal) {
+        return numberConvertToDecimal(number, decimal, DECIMAL_LENGTH);
+    }
+
+    /**
+     * 数字转换为进制字符串
+     *
+     * @param number
+     * @param decimal
+     * @param decimalMinLength 进制字符串最小长度
+     * @return
+     */
+    public static String numberConvertToDecimal(long number, int decimal, int decimalMinLength) {
         StringBuilder sb = new StringBuilder();
         // 初始为个位
         int digit = 0;
@@ -72,19 +82,18 @@ public class DecimalConvertUtil {
             digit++;
         }
 
-        for (int i = digit; i < DECIMAL_LENGTH; i++) {
+        for (int i = digit; i < decimalMinLength; i++) {
             sb.append(DIGIT_ARRAY_LIST.get(i)[0]);
         }
         return sb.reverse().toString();
     }
 
     /**
-     * @Author 80234613
-     * @Date 2019-7-7 11:34
-     * @Descripton 进制字符串转换为数字
+     * 进制字符串转换为数字
+     *
      * @param decimalStr
      * @param decimal
-     * @Return long
+     * @return
      */
     public static long decimalConvertToNumber(String decimalStr, int decimal) {
         long sum = 0;
@@ -97,6 +106,4 @@ public class DecimalConvertUtil {
         }
         return sum;
     }
-
-
 }

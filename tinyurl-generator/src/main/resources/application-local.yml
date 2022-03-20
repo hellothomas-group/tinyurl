@@ -4,25 +4,10 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/tinyurl?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
      &serverTimezone=Asia/Shanghai
     username: root
-  redis:
-    database: 0
-    jedis:
-      pool:
-        max-wait: 30000ms
-        max-idle: 5
-        max-active: 20
-        min-idle: 5
-    password:
-    host: 127.0.0.1
-    port: 6379
-    timeout: 500ms
-    client-name: tinyurl-generator
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
 tiny-url:
   address: http://127.0.0.1:8081
-  seq:
-    increment-step: 5
 logging:
   level:
     com:
@@ -31,3 +16,6 @@ logging:
     xyz.hellothomas: debug
     root: info
 debug: false
+leaf:
+  segment:
+    enabled: true

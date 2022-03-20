@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -19,11 +18,16 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @Builder
-public class UrlMapping implements Serializable {
+public class UrlMapping {
     /**
      * id
      */
     private Long id;
+
+    /**
+     * 分区标志
+     */
+    private Integer partitionTag;
 
     /**
      * 原始长链接

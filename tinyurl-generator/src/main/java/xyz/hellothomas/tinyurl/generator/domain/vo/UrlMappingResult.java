@@ -5,10 +5,9 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 /**
- * @className UrlMappingResult
- * @author 80234613 唐圆
- * @date 2021/1/4 14:27
- * @descripton
+ * @author Thomas
+ * @date 2022/3/19 23:44
+ * @description
  * @version 1.0
  */
 @Getter
@@ -22,6 +21,11 @@ public class UrlMappingResult {
      * 原始长链接
      */
     private String originUrl;
+
+    /**
+     * 分区标志
+     */
+    private Integer partitionTag;
 
     /**
      * 编码后序号

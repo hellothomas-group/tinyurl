@@ -7,9 +7,8 @@ import java.util.concurrent.TimeUnit;
 import static xyz.hellothomas.tinyurl.generator.common.enums.GeneratorErrorCodeEnum.THREAD_SLEEP_ERROR;
 
 /**
- * @classname SleepUtil
  * @author Thomas
- * @date 2020/11/4 15:32
+ * @date 2022/3/19 23:49
  * @description
  * @version 1.0
  */

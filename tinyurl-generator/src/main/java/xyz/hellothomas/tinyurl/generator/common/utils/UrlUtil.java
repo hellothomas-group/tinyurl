@@ -8,26 +8,22 @@ import java.net.URL;
 import static xyz.hellothomas.tinyurl.generator.common.enums.GeneratorErrorCodeEnum.URL_FORMAT_ERROR;
 
 /**
- * @ClassName UrlUtil
- * @Author Thomas
- * @Date 2019/7/8 22:53
- * @Description Url工具类
- * @Version 1.0
+ * @author Thomas
+ * @date 2022/3/19 23:49
+ * @description Url工具类
+ * @version 1.0
  */
 public class UrlUtil {
-
-    private static final String URL_CMBLIFE_PREFIX = "cmblife://";
 
     private UrlUtil() {
         throw new IllegalStateException("Utility class");
     }
 
     /**
-     * @Author 80234613
-     * @Date 2019-7-9 8:43
-     * @Descripton 字符Url转换为URL对象
+     * 符Url转换为URL对象
+     *
      * @param urlStr
-     * @Return java.net.URL
+     * @return
      */
     public static URL parse(String urlStr) {
         URL url;
@@ -43,10 +39,6 @@ public class UrlUtil {
     }
 
     public static void checkUrl(String urlStr) {
-        // cmb app协议
-        if (urlStr.startsWith(URL_CMBLIFE_PREFIX)) {
-            return;
-        }
         URL tinyURL = UrlUtil.parse(urlStr);
         if (tinyURL == null) {
             throw new MyException(URL_FORMAT_ERROR);

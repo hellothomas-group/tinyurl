@@ -6,14 +6,13 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import xyz.hellothomas.tinyurl.query.common.constants.Constants;
+import xyz.hellothomas.tinyurl.query.common.constants.QueryConstants;
 import xyz.hellothomas.tinyurl.query.infrastructure.property.CaffeineProperty;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @className CacheConfig
  * @author Thomas
  * @date 2020/11/29 22:49
  * @description
@@ -41,7 +40,7 @@ public class CacheConfig {
                 .expireAfterWrite(caffeineProperty.getExpireAfterWrite(), TimeUnit.SECONDS);
         cacheManager.setCaffeine(caffeine);
         //根据名字可以创建多个cache，但是多个cache使用相同的策略
-        cacheManager.setCacheNames(Arrays.asList(Constants.CAFFEINE_NULL_CACHE_NAME));
+        cacheManager.setCacheNames(Arrays.asList(QueryConstants.CAFFEINE_NULL_CACHE_NAME));
         return cacheManager;
     }
 }

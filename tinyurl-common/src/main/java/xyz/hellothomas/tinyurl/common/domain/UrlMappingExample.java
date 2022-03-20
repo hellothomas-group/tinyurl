@@ -1,7 +1,7 @@
 package xyz.hellothomas.tinyurl.common.domain;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class UrlMappingExample {
@@ -15,20 +15,20 @@ public class UrlMappingExample {
         oredCriteria = new ArrayList<Criteria>();
     }
 
-    public String getOrderByClause() {
-        return orderByClause;
-    }
-
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
     }
 
-    public boolean isDistinct() {
-        return distinct;
+    public String getOrderByClause() {
+        return orderByClause;
     }
 
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
+    }
+
+    public boolean isDistinct() {
+        return distinct;
     }
 
     public List<Criteria> getOredCriteria() {
@@ -162,6 +162,66 @@ public class UrlMappingExample {
 
         public Criteria andIdNotBetween(Long value1, Long value2) {
             addCriterion("id not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartitionTagIsNull() {
+            addCriterion("partition_tag is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartitionTagIsNotNull() {
+            addCriterion("partition_tag is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartitionTagEqualTo(Integer value) {
+            addCriterion("partition_tag =", value, "partitionTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartitionTagNotEqualTo(Integer value) {
+            addCriterion("partition_tag <>", value, "partitionTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartitionTagGreaterThan(Integer value) {
+            addCriterion("partition_tag >", value, "partitionTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartitionTagGreaterThanOrEqualTo(Integer value) {
+            addCriterion("partition_tag >=", value, "partitionTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartitionTagLessThan(Integer value) {
+            addCriterion("partition_tag <", value, "partitionTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartitionTagLessThanOrEqualTo(Integer value) {
+            addCriterion("partition_tag <=", value, "partitionTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartitionTagIn(List<Integer> values) {
+            addCriterion("partition_tag in", values, "partitionTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartitionTagNotIn(List<Integer> values) {
+            addCriterion("partition_tag not in", values, "partitionTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartitionTagBetween(Integer value1, Integer value2) {
+            addCriterion("partition_tag between", value1, value2, "partitionTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andPartitionTagNotBetween(Integer value1, Integer value2) {
+            addCriterion("partition_tag not between", value1, value2, "partitionTag");
             return (Criteria) this;
         }
 
@@ -302,6 +362,66 @@ public class UrlMappingExample {
 
         public Criteria andOriginUrlMd5NotBetween(String value1, String value2) {
             addCriterion("origin_url_md5 not between", value1, value2, "originUrlMd5");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginUrlTypeIsNull() {
+            addCriterion("origin_url_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginUrlTypeIsNotNull() {
+            addCriterion("origin_url_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginUrlTypeEqualTo(Integer value) {
+            addCriterion("origin_url_type =", value, "originUrlType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginUrlTypeNotEqualTo(Integer value) {
+            addCriterion("origin_url_type <>", value, "originUrlType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginUrlTypeGreaterThan(Integer value) {
+            addCriterion("origin_url_type >", value, "originUrlType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginUrlTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("origin_url_type >=", value, "originUrlType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginUrlTypeLessThan(Integer value) {
+            addCriterion("origin_url_type <", value, "originUrlType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginUrlTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("origin_url_type <=", value, "originUrlType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginUrlTypeIn(List<Integer> values) {
+            addCriterion("origin_url_type in", values, "originUrlType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginUrlTypeNotIn(List<Integer> values) {
+            addCriterion("origin_url_type not in", values, "originUrlType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginUrlTypeBetween(Integer value1, Integer value2) {
+            addCriterion("origin_url_type between", value1, value2, "originUrlType");
+            return (Criteria) this;
+        }
+
+        public Criteria andOriginUrlTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("origin_url_type not between", value1, value2, "originUrlType");
             return (Criteria) this;
         }
 
@@ -515,52 +635,52 @@ public class UrlMappingExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeEqualTo(Date value) {
+        public Criteria andCreateTimeEqualTo(LocalDateTime value) {
             addCriterion("create_time =", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeNotEqualTo(Date value) {
+        public Criteria andCreateTimeNotEqualTo(LocalDateTime value) {
             addCriterion("create_time <>", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeGreaterThan(Date value) {
+        public Criteria andCreateTimeGreaterThan(LocalDateTime value) {
             addCriterion("create_time >", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andCreateTimeGreaterThanOrEqualTo(LocalDateTime value) {
             addCriterion("create_time >=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeLessThan(Date value) {
+        public Criteria andCreateTimeLessThan(LocalDateTime value) {
             addCriterion("create_time <", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
+        public Criteria andCreateTimeLessThanOrEqualTo(LocalDateTime value) {
             addCriterion("create_time <=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeIn(List<Date> values) {
+        public Criteria andCreateTimeIn(List<LocalDateTime> values) {
             addCriterion("create_time in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeNotIn(List<Date> values) {
+        public Criteria andCreateTimeNotIn(List<LocalDateTime> values) {
             addCriterion("create_time not in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeBetween(Date value1, Date value2) {
+        public Criteria andCreateTimeBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("create_time between", value1, value2, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
+        public Criteria andCreateTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
@@ -575,52 +695,52 @@ public class UrlMappingExample {
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeEqualTo(Date value) {
+        public Criteria andUpdateTimeEqualTo(LocalDateTime value) {
             addCriterion("update_time =", value, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeNotEqualTo(Date value) {
+        public Criteria andUpdateTimeNotEqualTo(LocalDateTime value) {
             addCriterion("update_time <>", value, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeGreaterThan(Date value) {
+        public Criteria andUpdateTimeGreaterThan(LocalDateTime value) {
             addCriterion("update_time >", value, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andUpdateTimeGreaterThanOrEqualTo(LocalDateTime value) {
             addCriterion("update_time >=", value, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeLessThan(Date value) {
+        public Criteria andUpdateTimeLessThan(LocalDateTime value) {
             addCriterion("update_time <", value, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeLessThanOrEqualTo(Date value) {
+        public Criteria andUpdateTimeLessThanOrEqualTo(LocalDateTime value) {
             addCriterion("update_time <=", value, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeIn(List<Date> values) {
+        public Criteria andUpdateTimeIn(List<LocalDateTime> values) {
             addCriterion("update_time in", values, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeNotIn(List<Date> values) {
+        public Criteria andUpdateTimeNotIn(List<LocalDateTime> values) {
             addCriterion("update_time not in", values, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeBetween(Date value1, Date value2) {
+        public Criteria andUpdateTimeBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("update_time between", value1, value2, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeNotBetween(Date value1, Date value2) {
+        public Criteria andUpdateTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("update_time not between", value1, value2, "updateTime");
             return (Criteria) this;
         }
@@ -635,52 +755,52 @@ public class UrlMappingExample {
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeEqualTo(Date value) {
+        public Criteria andExpireTimeEqualTo(LocalDateTime value) {
             addCriterion("expire_time =", value, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeNotEqualTo(Date value) {
+        public Criteria andExpireTimeNotEqualTo(LocalDateTime value) {
             addCriterion("expire_time <>", value, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeGreaterThan(Date value) {
+        public Criteria andExpireTimeGreaterThan(LocalDateTime value) {
             addCriterion("expire_time >", value, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andExpireTimeGreaterThanOrEqualTo(LocalDateTime value) {
             addCriterion("expire_time >=", value, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeLessThan(Date value) {
+        public Criteria andExpireTimeLessThan(LocalDateTime value) {
             addCriterion("expire_time <", value, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeLessThanOrEqualTo(Date value) {
+        public Criteria andExpireTimeLessThanOrEqualTo(LocalDateTime value) {
             addCriterion("expire_time <=", value, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeIn(List<Date> values) {
+        public Criteria andExpireTimeIn(List<LocalDateTime> values) {
             addCriterion("expire_time in", values, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeNotIn(List<Date> values) {
+        public Criteria andExpireTimeNotIn(List<LocalDateTime> values) {
             addCriterion("expire_time not in", values, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeBetween(Date value1, Date value2) {
+        public Criteria andExpireTimeBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("expire_time between", value1, value2, "expireTime");
             return (Criteria) this;
         }
 
-        public Criteria andExpireTimeNotBetween(Date value1, Date value2) {
+        public Criteria andExpireTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("expire_time not between", value1, value2, "expireTime");
             return (Criteria) this;
         }
@@ -711,6 +831,38 @@ public class UrlMappingExample {
         private boolean listValue;
 
         private String typeHandler;
+
+        public String getCondition() {
+            return condition;
+        }
+
+        public Object getValue() {
+            return value;
+        }
+
+        public Object getSecondValue() {
+            return secondValue;
+        }
+
+        public boolean isNoValue() {
+            return noValue;
+        }
+
+        public boolean isSingleValue() {
+            return singleValue;
+        }
+
+        public boolean isBetweenValue() {
+            return betweenValue;
+        }
+
+        public boolean isListValue() {
+            return listValue;
+        }
+
+        public String getTypeHandler() {
+            return typeHandler;
+        }
 
         protected Criterion(String condition) {
             super();
@@ -746,38 +898,6 @@ public class UrlMappingExample {
 
         protected Criterion(String condition, Object value, Object secondValue) {
             this(condition, value, secondValue, null);
-        }
-
-        public String getCondition() {
-            return condition;
-        }
-
-        public Object getValue() {
-            return value;
-        }
-
-        public Object getSecondValue() {
-            return secondValue;
-        }
-
-        public boolean isNoValue() {
-            return noValue;
-        }
-
-        public boolean isSingleValue() {
-            return singleValue;
-        }
-
-        public boolean isBetweenValue() {
-            return betweenValue;
-        }
-
-        public boolean isListValue() {
-            return listValue;
-        }
-
-        public String getTypeHandler() {
-            return typeHandler;
         }
     }
 }

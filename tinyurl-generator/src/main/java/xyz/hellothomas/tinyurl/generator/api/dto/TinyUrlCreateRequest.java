@@ -13,11 +13,10 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 /**
- * @ClassName TinyUrlCreateRequest
- * @Author 80234613
- * @Date 2019-7-8 20:57
- * @Descripton
- * @Version 1.0
+ * @author Thomas
+ * @date 2022/3/19 23:47
+ * @description
+ * @version 1.0
  */
 @Getter
 @Setter
@@ -27,7 +26,8 @@ public class TinyUrlCreateRequest {
 
     @NotBlank
     @Length(max = 2083)
-    @ApiModelProperty(value = "原始url", required = true, dataType = "string", example = "\"https://gitee.com/hellothomas\"")
+    @ApiModelProperty(value = "原始url", required = true, dataType = "string", example = "\"https://gitee" +
+            ".com/hellothomas\"")
     private String originUrl;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

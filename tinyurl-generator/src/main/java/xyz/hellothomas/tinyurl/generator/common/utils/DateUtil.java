@@ -11,7 +11,6 @@ public class DateUtil {
         throw new IllegalStateException("Utility class");
     }
 
-
     public static Date localDateTimeToDate(LocalDateTime localDateTime) {
         if (localDateTime == null) {
             return new Date();

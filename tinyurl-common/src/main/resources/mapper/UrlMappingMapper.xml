@@ -3,6 +3,7 @@
 <mapper namespace="xyz.hellothomas.tinyurl.common.infrastructure.mapper.UrlMappingMapper">
     <resultMap id="BaseResultMap" type="xyz.hellothomas.tinyurl.common.domain.UrlMapping">
         <id column="id" jdbcType="BIGINT" property="id"/>
+        <id column="partition_tag" jdbcType="TINYINT" property="partitionTag"/>
         <result column="origin_url" jdbcType="VARCHAR" property="originUrl"/>
         <result column="origin_url_md5" jdbcType="VARCHAR" property="originUrlMd5"/>
         <result column="tiny_url" jdbcType="VARCHAR" property="tinyUrl"/>
@@ -73,9 +74,10 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    id, origin_url, origin_url_md5, tiny_url, user_id, url_type, create_time, update_time,
-    expire_time
-  </sql>
+        id
+        , partition_tag, origin_url, origin_url_md5, tiny_url, user_id, url_type, create_time,
+    update_time, expire_time
+    </sql>
     <select id="selectByExample" parameterType="xyz.hellothomas.tinyurl.common.domain.UrlMappingExample"
             resultMap="BaseResultMap">
         select
@@ -96,11 +98,14 @@
         <include refid="Base_Column_List"/>
         from url_mapping
         where id = #{id,jdbcType=BIGINT}
+        and partition_tag = #{partitionTag,jdbcType=TINYINT}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from url_mapping
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
+        delete
+        from url_mapping
+        where id = #{id,jdbcType=BIGINT}
+          and partition_tag = #{partitionTag,jdbcType=TINYINT}
+    </delete>
     <delete id="deleteByExample" parameterType="xyz.hellothomas.tinyurl.common.domain.UrlMappingExample">
         delete from url_mapping
         <if test="_parameter != null">
@@ -108,20 +113,23 @@
         </if>
     </delete>
     <insert id="insert" parameterType="xyz.hellothomas.tinyurl.common.domain.UrlMapping">
-    insert into url_mapping (id, origin_url, origin_url_md5,
-      tiny_url, user_id, url_type,
-      create_time, update_time, expire_time
-      )
-    values (#{id,jdbcType=BIGINT}, #{originUrl,jdbcType=VARCHAR}, #{originUrlMd5,jdbcType=VARCHAR},
-      #{tinyUrl,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{urlType,jdbcType=INTEGER},
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{expireTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
+        insert into url_mapping (id, partition_tag, origin_url,
+                                 origin_url_md5, tiny_url, user_id,
+                                 url_type, create_time, update_time,
+                                 expire_time)
+        values (#{id,jdbcType=BIGINT}, #{partitionTag,jdbcType=TINYINT}, #{originUrl,jdbcType=VARCHAR},
+                #{originUrlMd5,jdbcType=VARCHAR}, #{tinyUrl,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR},
+                #{urlType,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+                #{expireTime,jdbcType=TIMESTAMP})
+    </insert>
     <insert id="insertSelective" parameterType="xyz.hellothomas.tinyurl.common.domain.UrlMapping">
         insert into url_mapping
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
+            </if>
+            <if test="partitionTag != null">
+                partition_tag,
             </if>
             <if test="originUrl != null">
                 origin_url,
@@ -151,6 +159,9 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 #{id,jdbcType=BIGINT},
+            </if>
+            <if test="partitionTag != null">
+                #{partitionTag,jdbcType=TINYINT},
             </if>
             <if test="originUrl != null">
                 #{originUrl,jdbcType=VARCHAR},
@@ -191,6 +202,9 @@
             <if test="record.id != null">
                 id = #{record.id,jdbcType=BIGINT},
             </if>
+            <if test="record.partitionTag != null">
+                partition_tag = #{record.partitionTag,jdbcType=TINYINT},
+            </if>
             <if test="record.originUrl != null">
                 origin_url = #{record.originUrl,jdbcType=VARCHAR},
             </if>
@@ -223,6 +237,7 @@
     <update id="updateByExample" parameterType="map">
         update url_mapping
         set id = #{record.id,jdbcType=BIGINT},
+        partition_tag = #{record.partitionTag,jdbcType=TINYINT},
         origin_url = #{record.originUrl,jdbcType=VARCHAR},
         origin_url_md5 = #{record.originUrlMd5,jdbcType=VARCHAR},
         tiny_url = #{record.tinyUrl,jdbcType=VARCHAR},
@@ -264,17 +279,19 @@
             </if>
         </set>
         where id = #{id,jdbcType=BIGINT}
+        and partition_tag = #{partitionTag,jdbcType=TINYINT}
     </update>
     <update id="updateByPrimaryKey" parameterType="xyz.hellothomas.tinyurl.common.domain.UrlMapping">
-    update url_mapping
-    set origin_url = #{originUrl,jdbcType=VARCHAR},
-      origin_url_md5 = #{originUrlMd5,jdbcType=VARCHAR},
-      tiny_url = #{tinyUrl,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=VARCHAR},
-      url_type = #{urlType,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      expire_time = #{expireTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+        update url_mapping
+        set origin_url     = #{originUrl,jdbcType=VARCHAR},
+            origin_url_md5 = #{originUrlMd5,jdbcType=VARCHAR},
+            tiny_url       = #{tinyUrl,jdbcType=VARCHAR},
+            user_id        = #{userId,jdbcType=VARCHAR},
+            url_type       = #{urlType,jdbcType=INTEGER},
+            create_time    = #{createTime,jdbcType=TIMESTAMP},
+            update_time    = #{updateTime,jdbcType=TIMESTAMP},
+            expire_time    = #{expireTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+        and partition_tag = #{partitionTag,jdbcType=TINYINT}
+    </update>
 </mapper>

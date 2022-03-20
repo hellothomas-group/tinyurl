@@ -7,17 +7,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import xyz.hellothomas.tinyurl.common.infrastructure.exception.MyException;
 import xyz.hellothomas.tinyurl.generator.common.enums.GeneratorErrorCodeEnum;
-import xyz.hellothomas.tinyurl.generator.common.utils.DecimalConvertUtil;
+import xyz.hellothomas.tinyurl.common.common.utils.DecimalConvertUtil;
 import xyz.hellothomas.tinyurl.generator.domain.vo.UrlMappingResult;
 
 import java.time.LocalDateTime;
 
 /**
- * @ClassName UniqueSeqService
- * @Author 80234613
- * @Date 2019-7-4 13:22
- * @Descripton 全局唯一序号Service
- * @Version 1.0
+ * @author Thomas
+ * @date 2022/3/19 23:42
+ * @description 全局唯一序号Service
+ * @version 1.0
  */
 @Slf4j
 @Service
@@ -34,17 +33,15 @@ public class UniqueSeqService {
     /**
      * 为OriginURL生成全局唯一序号
      *
-     * @author 80234613 唐圆
-     * @date 2021/1/4
      * @param originUrlStr
      * @param originUrlMd5
+     * @param partitionTag
      * @param userId
      * @param expirationTime
-     * @return UrlMappingResult
-     * @throws
+     * @return
      */
-    public UrlMappingResult generateUrlMappingResult(String originUrlStr, String originUrlMd5, String userId,
-                                                     LocalDateTime expirationTime) {
+    public UrlMappingResult generateUrlMappingResult(String originUrlStr, String originUrlMd5, int partitionTag,
+                                                     String userId, LocalDateTime expirationTime) {
         long seq = generateSeq();
         log.info("新生成seq：" + seq);
 
@@ -55,10 +52,12 @@ public class UniqueSeqService {
             expirationTime = LocalDateTime.now().plusYears(1);
         }
 
-        urlMappingService.saveUrlMapping(originUrlStr, originUrlMd5, seq, seqEncode, userId, expirationTime);
+        urlMappingService.saveUrlMapping(originUrlStr, originUrlMd5, partitionTag, seq, seqEncode, userId,
+                expirationTime);
 
         return UrlMappingResult.builder()
                 .originUrl(originUrlStr)
+                .partitionTag(partitionTag)
                 .seqEncode(seqEncode)
                 .userId(userId)
                 .expireTime(expirationTime)
@@ -76,14 +75,14 @@ public class UniqueSeqService {
     }
 
     /**
-     * @Author 80234613
-     * @Date 2019-7-7 12:19
-     * @Descripton 全局唯一序号转换为原originURL
+     * 全局唯一序号转换为原originURL
+     *
      * @param seqEncode
-     * @Return java.lang.String
+     * @param partitionTag
+     * @return
      */
-    public String seqEncodeConvertToOriginUrl(String seqEncode) {
-        String originUrl = urlMappingService.queryOriginUrl(seqEncode);
+    public String seqEncodeConvertToOriginUrl(String seqEncode, int partitionTag) {
+        String originUrl = urlMappingService.queryOriginUrl(seqEncode, partitionTag);
         if (originUrl == null) {
             throw new MyException(GeneratorErrorCodeEnum.URL_NOT_EXIST);
         }

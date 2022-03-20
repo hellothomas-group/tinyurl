@@ -11,7 +11,7 @@ public interface UrlMappingMapper {
 
     int deleteByExample(UrlMappingExample example);
 
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(Long id, Integer partitionTag);
 
     int insert(UrlMapping record);
 
@@ -19,7 +19,7 @@ public interface UrlMappingMapper {
 
     List<UrlMapping> selectByExample(UrlMappingExample example);
 
-    UrlMapping selectByPrimaryKey(Long id);
+    UrlMapping selectByPrimaryKey(Long id, Integer partitionTag);
 
     int updateByExampleSelective(@Param("record") UrlMapping record, @Param("example") UrlMappingExample example);
 

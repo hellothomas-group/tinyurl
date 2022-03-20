@@ -1,23 +1,22 @@
 package xyz.hellothomas.tinyurl.generator.api;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 import xyz.hellothomas.tinyurl.common.dto.ApiResponse;
 import xyz.hellothomas.tinyurl.generator.api.dto.TinyUrlCreateRequest;
 import xyz.hellothomas.tinyurl.generator.api.dto.TinyUrlCreateResponse;
 import xyz.hellothomas.tinyurl.generator.api.dto.TinyUrlGetResponse;
 import xyz.hellothomas.tinyurl.generator.applicaton.TinyUrlService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 /**
- * @ClassName TinyURLController
- * @Author 80234613
- * @Date 2019-7-4 13:18
- * @Descripton TinyURL生成和查询
- * @Version 1.0
+ * @author Thomas
+ * @date 2022/3/19 23:47
+ * @description TinyURL生成和查询
+ * @version 1.0
  */
 @RestController
 @RequestMapping("/tinyurl")
@@ -32,11 +31,11 @@ public class TinyUrlController {
     }
 
     /**
-     * @Author Thomas
-     * @Date 2019/7/8
-     * @Description 根据originURL创建tinyURL
+     * 根据originURL创建tinyURL
+     *
+     * @param userId
      * @param createRequest
-     * @return org.springframework.http.ResponseEntity<java.util.Map>
+     * @return
      */
     @PostMapping(value = "/create")
     @ApiOperation(value = "创建tinyURL")
@@ -50,11 +49,10 @@ public class TinyUrlController {
     }
 
     /**
-     * @Author Thomas
-     * @Date 2019/7/8
-     * @Description 根据tinyURL查询originURL
+     * 根据tinyURL查询originURL
+     *
      * @param tinyUrlStr
-     * @return org.springframework.http.ResponseEntity<java.util.Map>
+     * @return
      */
     @GetMapping(value = "/get")
     @ApiOperation(value = "查询originURL")

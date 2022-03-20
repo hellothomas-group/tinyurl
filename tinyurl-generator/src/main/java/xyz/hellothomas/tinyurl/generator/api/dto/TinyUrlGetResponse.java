@@ -5,11 +5,10 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 /**
- * @ClassName TinyUrlGetResponse
- * @Author 80234613
- * @Date 2019-7-8 20:57
- * @Descripton
- * @Version 1.0
+ * @author Thomas
+ * @date 2022/3/19 23:48
+ * @description
+ * @version 1.0
  */
 @Getter
 @Setter
